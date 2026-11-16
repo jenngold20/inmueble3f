@@ -182,3 +182,4 @@ main().catch((err) => {
   console.error('❌ Error en verificación GeoJSON:', err);
   process.exit(1);
 });
+
