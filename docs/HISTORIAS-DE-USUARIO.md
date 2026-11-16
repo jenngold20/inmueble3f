@@ -517,26 +517,32 @@ Con un marco temporal de **15 días** (16 de noviembre al 1 de diciembre de 2026
 4. Interfaz interactiva en React-Leaflet con filtros básicos por superficie, precio, operación y visualización de polígonos.
 5. Semáforo de salud de base de datos y fuentes de datos.
 
-Siguiendo la directiva de no superar **3 SP por tarea técnica atómica**, las historias estimadas originalmente en **5 SP** han sido divididas (*slicing*) en tarjetas técnicas de 1, 2 o 3 SP en Trello:
+Siguiendo la directiva de no superar **3 SP por tarea técnica atómica**, las historias estimadas originalmente en **5 SP** han sido divididas (*slicing*) en tarjetas técnicas de 1, 2 o 3 SP en Trello, distribuidas entre el equipo bajo una **proporción de capacidad 5 : 3 : 2** (Leonardo 50%, Luis 30%, Jenni 20%), asegurando que las **tareas iniciales bloqueantes** sean ejecutadas por Leonardo para desbloquear al equipo:
 
-| Código HU | Título de la Historia de Usuario | Épica | SP Original | Slicing Técnico (Tarjetas Trello $\le 3\text{ SP}$) | Sprint |
-| :--- | :--- | :--- | :---: | :--- | :---: |
-| **HU-ING-01** | Extracción Automatizada Diaria (Scraper Argenprop) | Ingesta | **5 SP** | `[CARD-ING-01A]` Parser Cheerio [3 SP]<br>`[CARD-ING-01B]` CLI y Normalización [2 SP] | Sprint 1 (1 Dic) |
-| **HU-ING-02** | Normalización de Direcciones y Cruce de Fallback | Ingesta | **3 SP** | `[CARD-GEO-06]` Cruce Espacial y Georef Fallback [3 SP] | Sprint 1 (1 Dic) |
-| **HU-ING-03** | Deduplicación Heurística en Parcela Única | Ingesta | **5 SP** | `[CARD-ING-03A]` Detección de Parcela Turf.js [3 SP]<br>`[CARD-ING-03B]` Agrupamiento de Publicaciones [2 SP] | Sprint 1 (1 Dic) |
-| **HU-GEO-06** | Determinación de Zona por Coordenadas | Cruce Espacial | **3 SP** | `[CARD-GEO-06]` Cruce Espacial con Turf.js [3 SP] | Sprint 1 (1 Dic) |
-| **HU-GEO-07** | Delimitación de Sectores Camino del Buen Ayre | Cruce Espacial | **3 SP** | `[CARD-GEO-07]` Digitalización Capas GeoJSON [2 SP] | Sprint 1 (1 Dic) |
-| **HU-GEO-08** | Visualización de Capas de Zonificación en Leaflet | Cruce Espacial | **3 SP** | `[CARD-GEO-08]` Renderizado Capas Leaflet [2 SP] | Sprint 1 (1 Dic) |
-| **HU-MAP-09** | Navegación en Mapa Interactivo de Tres de Febrero | Frontend / UX | **3 SP** | `[CARD-MAP-09]` Listado Inmuebles Mock Sidebar [2 SP] | Sprint 1 (1 Dic) |
-| **HU-MAP-10** | Filtrado Dinámico Multicriterio de la Oferta | Frontend / UX | **3 SP** | `[CARD-MAP-10]` Controles de Filtros Frontend [3 SP] | Sprint 1 (1 Dic) |
-| **HU-MAP-12** | Ficha Técnica Detallada y Comercializadora | Frontend / UX | **2 SP** | `[CARD-MAP-12]` Modal y Ficha de Inmueble [2 SP] | Sprint 1 (1 Dic) |
-| **HU-MAP-13** | Sincronización de Filtros en URL (Deep Linking) | Frontend / UX | **2 SP** | `[CARD-MAP-13]` Sincronización URL SearchParams [2 SP] | Sprint 1 (1 Dic) |
-| **HU-MTR-16** | Semáforo de Salud y Monitoreo de Scrapers | Monitoreo | **3 SP** | `[CARD-MTR-16]` Indicador y Endpoint Monitoreo [2 SP] | Sprint 1 (1 Dic) |
-| **HU-ING-04** | Carga Manual y Carga Masiva por Planillas | Ingesta | **3 SP** | Post 1 de Diciembre | Sprint 2 |
-| **HU-ING-05** | Ingesta de Bajas de Habilitaciones Comerciales | Ingesta | **3 SP** | Post 1 de Diciembre | Sprint 2 |
-| **HU-MAP-11** | Filtro Inteligente de Aptitud por Rubro Empresarial | Frontend / UX | **5 SP** | Post 1 de Diciembre (Requiere Matriz Municipal) | Sprint 2 |
-| **HU-MTR-14** | Registro de Consultas y Búsquedas Empresariales | Métricas | **3 SP** | Post 1 de Diciembre | Sprint 2 |
-| **HU-MTR-15** | Tablero de Demanda Insatisfecha (Política de Suelo) | Métricas | **5 SP** | Post 1 de Diciembre | Sprint 3 / V2.0 |
+| Código HU | Título de la Historia de Usuario | Épica | SP Orig. | Slicing Técnico (Tarjetas Trello $\le 3\text{ SP}$) | Responsable Asignado | Sprint |
+| :--- | :--- | :--- | :---: | :--- | :--- | :---: |
+| **HU-BD-01** | Modelos y Contratos de Dominio | DB | **3 SP** | `[CARD-BD-01]` Modelos Sequelize y Contratos Zod [3 SP] | **Leonardo (Bloqueante)** | Sprint 1 (1 Dic) |
+| **HU-GEO-07** | Delimitación de Sectores y Capas GIS | GIS | **3 SP** | `[CARD-GEO-07]` Captura y Digitalización GeoJSON [2 SP] | **Leonardo (Bloqueante)** | Sprint 1 (1 Dic) |
+| **HU-ING-01** | Extracción Diaria (Scraper Argenprop) | Ingesta | **5 SP** | `[CARD-ING-01A]` Parser Cheerio sobre Fixtures [3 SP]<br>`[CARD-ING-01B]` Ingesta Zod y CorridasScraper [2 SP] | **Leonardo (Bloqueante)**<br>**Luis** | Sprint 1 (1 Dic) |
+| **HU-GEO-06** | Determinación de Zona por Coordenadas | GIS | **3 SP** | `[CARD-GEO-06]` Cruce Espacial con Turf.js [3 SP] | **Leonardo (Bloqueante)** | Sprint 1 (1 Dic) |
+| **HU-ING-03** | Deduplicación Heurística en Parcela Única | Ingesta | **5 SP** | `[CARD-ING-03A]` Deduplicación Espacial Turf.js [3 SP]<br>`[CARD-ING-03B]` Persistencia Relacional 1 a N [2 SP] | **Leonardo (Bloqueante)**<br>**Luis** | Sprint 1 (1 Dic) |
+| **HU-GEO-08** | Capas de Zonificación en Leaflet | GIS | **3 SP** | `[CARD-GEO-08]` Renderizado Capas Leaflet [2 SP] | **Luis** | Sprint 1 (1 Dic) |
+| **HU-MAP-09** | Navegación en Mapa de Tres de Febrero | Frontend | **3 SP** | `[CARD-MAP-09]` Listado Inmuebles Mock Sidebar [2 SP] | **Jenni** | Sprint 1 (1 Dic) |
+| **HU-MAP-10** | Filtrado Dinámico Multicriterio | Frontend | **3 SP** | `[CARD-MAP-10]` Panel Filtros Multicriterio React [3 SP] | **Luis** | Sprint 1 (1 Dic) |
+| **HU-MAP-12** | Ficha Técnica Detallada | Frontend | **2 SP** | `[CARD-MAP-12]` Ficha Detallada en Drawer [2 SP] | **Jenni** | Sprint 1 (1 Dic) |
+| **HU-MAP-13** | Sincronización en URL (Deep Linking) | Frontend | **2 SP** | `[CARD-MAP-13]` Sincronización Filtros en URL [2 SP] | **Jenni** | Sprint 1 (1 Dic) |
+| **HU-MTR-16** | Semáforo de Salud y Monitoreo | Monitoreo | **3 SP** | `[CARD-MTR-16]` Semáforo Salud Scrapers [2 SP] | **Leonardo** | Sprint 1 (1 Dic) |
+| **DOC-01/02** | Documentación y Presentación Demo | Gestión | **2 SP** | `[CARD-DOC-01]` Arquitectura, DER y APIs [1 SP]<br>`[CARD-DOC-02]` Guía y Demo para Dirección [1 SP] | **Leonardo**<br>**Luis** | Sprint 1 (1 Dic) |
+| **HU-ING-04** | Carga Manual y Carga Masiva por Planillas | Ingesta | **3 SP** | Post 1 de Diciembre | A definir | Sprint 2 |
+| **HU-ING-05** | Ingesta de Bajas de Habilitaciones | Ingesta | **3 SP** | Post 1 de Diciembre | A definir | Sprint 2 |
+| **HU-MAP-11** | Filtro Inteligente de Aptitud por Rubro | Frontend | **5 SP** | Post 1 de Diciembre (Requiere Matriz) | A definir | Sprint 2 |
+| **HU-MTR-14** | Registro de Consultas y Búsquedas | Métricas | **3 SP** | Post 1 de Diciembre | A definir | Sprint 2 |
+| **HU-MTR-15** | Tablero de Demanda Insatisfecha | Métricas | **5 SP** | Post 1 de Diciembre | A definir | Sprint 3 / V2.0 |
+
+### 👥 Resumen de Capacidad del Equipo (Sprint 1)
+- **Leonardo Murano (50% - 5 de 10):** 7 tarjetas, 17 SP. Asume las 5 tareas iniciales bloqueantes (`CARD-BD-01`, `CARD-GEO-07`, `CARD-ING-01A`, `CARD-GEO-06`, `CARD-ING-03A`), más monitoreo (`CARD-MTR-16`) y documentación DER (`CARD-DOC-01`).
+- **Luis M (30% - 3 de 10):** 5 tarjetas, 10 SP. Asume persistencia de ingesta (`CARD-ING-01B`), relaciones 1 a N (`CARD-ING-03B`), capas Leaflet (`CARD-GEO-08`), lógica de filtros (`CARD-MAP-10`) y demo municipal (`CARD-DOC-02`).
+- **Jennifer Goldfeld (20% - 2 de 10):** 3 tarjetas, 6 SP. Asume diseño UI de tarjetas mock (`CARD-MAP-09`), modal drawer de propiedad (`CARD-MAP-12`) y sincronización deep linking en URL (`CARD-MAP-13`).
 
 ---
 
