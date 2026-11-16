@@ -31,3 +31,10 @@ Plataforma web de uso interno para la Dirección de Inversiones de la Municipali
    - Antes de tocar rutas, controladores o modelos: leé `/docs/ARCHITECTURE.md`.
    - Antes de tocar esquemas de datos, zonas o scrapers: leé `/docs/DOMINIO_Y_DATOS.md`.
    - Antes de hacer commits o ramas: respetá `/CONTRIBUTING.md`.
+
+## 6. Reglas de Integración con Trello
+- **Espacio de Trabajo Autorizado:** El único espacio de trabajo de Trello vinculado a este proyecto es **"Inmuebles 3F"** (`inmuebles3f`, workspace ID: `ari:cloud:trello::workspace/6af61825955ab4d2f2d74f3a`).
+- **Restricción Estricta:** Queda **PROHIBIDO** revisar, consultar, listar o interactuar con cualquier otro espacio de trabajo o tablero de Trello ajeno a Inmuebles 3F (como espacios personales u otros proyectos), a menos que el usuario lo especifique explícitamente.
+- **Tableros del Proyecto:**
+  - `Inmuebles 3F [DEVS]`: Tablero técnico de desarrollo por sprints, tareas de código, PRs y arquitectura.
+  - `Inmuebles 3F Tareas`: Tablero de gestión de alto nivel, roadmap y requerimientos del municipio.
