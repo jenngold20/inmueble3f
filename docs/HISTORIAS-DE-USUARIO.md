@@ -509,29 +509,51 @@ Escenario: Fuente en estado saludable (Semáforo Verde)
 
 ## 📈 Matriz de Estimación y Planificación por Sprints
 
-Siguiendo la directiva de no superar **3 SP por tarea técnica atómica**, las historias estimadas en **5 SP** se particionarán mediante *slicing* al momento de generar sus tarjetas de ejecución:
+### 🎯 Plazo y Objetivo de Entrega: Sprint 1 (1 de Diciembre de 2026)
+Con un marco temporal de **15 días** (16 de noviembre al 1 de diciembre de 2026), el **Sprint 1** se enfoca exclusivamente en entregar un **MVP funcional de punta a punta (Walking Skeleton consolidado a producto demostrable)**:
+1. Base de datos con modelos de dominio (`Inmueble`, `Publicacion`, `Zona`, `Foto`) y contratos Zod.
+2. Ingesta de avisos reales mediante parser offline/online de Argenprop.
+3. Cruce geoespacial con Turf.js para asignación automática de zonificación (C1..C3, RMI 1..3, Buen Ayre).
+4. Interfaz interactiva en React-Leaflet con filtros básicos por superficie, precio, operación y visualización de polígonos.
+5. Semáforo de salud de base de datos y fuentes de datos.
 
-| Código | Título de la Historia de Usuario | Épica | Prioridad | Estimación (SP) | Sprint Sugerido |
-| :--- | :--- | :--- | :--- | :---: | :---: |
-| **HU-ING-01** | Extracción Automatizada Diaria de Portales (Scraper) | Ingesta | Alta | **5 SP** | Sprint 1 |
-| **HU-ING-02** | Geocodificación y Normalización de Direcciones (Georef) | Ingesta | Alta | **3 SP** | Sprint 1 |
-| **HU-ING-03** | Deduplicación Heurística en Parcela Única (Turf.js) | Ingesta | Alta | **5 SP** | Sprint 1 |
-| **HU-GEO-06** | Asignación Automática de Zona por Coordenadas (Turf.js)| Cruce Espacial | Alta | **3 SP** | Sprint 1 |
-| **HU-GEO-07** | Delimitación de Sectores Camino del Buen Ayre | Cruce Espacial | Alta | **3 SP** | Sprint 1 |
-| **HU-GEO-08** | Visualización de Capas de Zonificación en Leaflet | Cruce Espacial | Media | **3 SP** | Sprint 1 |
-| **HU-MAP-09** | Navegación en Mapa Interactivo de Tres de Febrero | Frontend / UX | Alta | **3 SP** | Sprint 1 |
-| **HU-MAP-10** | Filtrado Dinámico Multicriterio de la Oferta | Frontend / UX | Alta | **3 SP** | Sprint 1 |
-| **HU-MAP-12** | Ficha Técnica Detallada y Datos de Comercialización | Frontend / UX | Media | **2 SP** | Sprint 1 |
-| **HU-MAP-13** | Sincronización de Filtros en URL (Deep Linking) | Frontend / UX | Media | **2 SP** | Sprint 1 |
-| **HU-MTR-16** | Semáforo de Salud y Monitoreo de Scrapers | Monitoreo | Alta | **3 SP** | Sprint 1 |
-| **HU-ING-04** | Carga Manual y Carga Masiva por Planillas | Ingesta | Media | **3 SP** | Sprint 2 |
-| **HU-ING-05** | Ingesta de Bajas de Habilitaciones Comerciales | Ingesta | Media | **3 SP** | Sprint 2 |
-| **HU-MAP-11** | Filtro Inteligente de Aptitud por Rubro Empresarial | Frontend / UX | Alta | **5 SP** | Sprint 2 |
-| **HU-MTR-14** | Registro de Consultas y Búsquedas Empresariales | Métricas | Media | **3 SP** | Sprint 2 |
-| **HU-MTR-15** | Tablero de Demanda Insatisfecha (Política de Suelo) | Métricas | Baja | **5 SP** | Sprint 3 / Fase 2 |
+Siguiendo la directiva de no superar **3 SP por tarea técnica atómica**, las historias estimadas originalmente en **5 SP** han sido divididas (*slicing*) en tarjetas técnicas de 1, 2 o 3 SP en Trello:
 
-**Total Backlog Estimado:** **53 Story Points (SP)**  
-- **Sprint 1 (MVP Operativo de Búsqueda y Cruce):** 34 SP  
-- **Sprint 2 (Inteligencia de Rubros, Autogestión y Demanda):** 14 SP  
-- **Sprint 3 (Métricas Estratégicas y Reportes Avanzados):** 5 SP  
+| Código HU | Título de la Historia de Usuario | Épica | SP Original | Slicing Técnico (Tarjetas Trello $\le 3\text{ SP}$) | Sprint |
+| :--- | :--- | :--- | :---: | :--- | :---: |
+| **HU-ING-01** | Extracción Automatizada Diaria (Scraper Argenprop) | Ingesta | **5 SP** | `[CARD-ING-01A]` Parser Cheerio [3 SP]<br>`[CARD-ING-01B]` CLI y Normalización [2 SP] | Sprint 1 (1 Dic) |
+| **HU-ING-02** | Normalización de Direcciones y Cruce de Fallback | Ingesta | **3 SP** | `[CARD-GEO-06]` Cruce Espacial y Georef Fallback [3 SP] | Sprint 1 (1 Dic) |
+| **HU-ING-03** | Deduplicación Heurística en Parcela Única | Ingesta | **5 SP** | `[CARD-ING-03A]` Detección de Parcela Turf.js [3 SP]<br>`[CARD-ING-03B]` Agrupamiento de Publicaciones [2 SP] | Sprint 1 (1 Dic) |
+| **HU-GEO-06** | Determinación de Zona por Coordenadas | Cruce Espacial | **3 SP** | `[CARD-GEO-06]` Cruce Espacial con Turf.js [3 SP] | Sprint 1 (1 Dic) |
+| **HU-GEO-07** | Delimitación de Sectores Camino del Buen Ayre | Cruce Espacial | **3 SP** | `[CARD-GEO-07]` Digitalización Capas GeoJSON [2 SP] | Sprint 1 (1 Dic) |
+| **HU-GEO-08** | Visualización de Capas de Zonificación en Leaflet | Cruce Espacial | **3 SP** | `[CARD-GEO-08]` Renderizado Capas Leaflet [2 SP] | Sprint 1 (1 Dic) |
+| **HU-MAP-09** | Navegación en Mapa Interactivo de Tres de Febrero | Frontend / UX | **3 SP** | `[CARD-MAP-09]` Listado Inmuebles Mock Sidebar [2 SP] | Sprint 1 (1 Dic) |
+| **HU-MAP-10** | Filtrado Dinámico Multicriterio de la Oferta | Frontend / UX | **3 SP** | `[CARD-MAP-10]` Controles de Filtros Frontend [3 SP] | Sprint 1 (1 Dic) |
+| **HU-MAP-12** | Ficha Técnica Detallada y Comercializadora | Frontend / UX | **2 SP** | `[CARD-MAP-12]` Modal y Ficha de Inmueble [2 SP] | Sprint 1 (1 Dic) |
+| **HU-MAP-13** | Sincronización de Filtros en URL (Deep Linking) | Frontend / UX | **2 SP** | `[CARD-MAP-13]` Sincronización URL SearchParams [2 SP] | Sprint 1 (1 Dic) |
+| **HU-MTR-16** | Semáforo de Salud y Monitoreo de Scrapers | Monitoreo | **3 SP** | `[CARD-MTR-16]` Indicador y Endpoint Monitoreo [2 SP] | Sprint 1 (1 Dic) |
+| **HU-ING-04** | Carga Manual y Carga Masiva por Planillas | Ingesta | **3 SP** | Post 1 de Diciembre | Sprint 2 |
+| **HU-ING-05** | Ingesta de Bajas de Habilitaciones Comerciales | Ingesta | **3 SP** | Post 1 de Diciembre | Sprint 2 |
+| **HU-MAP-11** | Filtro Inteligente de Aptitud por Rubro Empresarial | Frontend / UX | **5 SP** | Post 1 de Diciembre (Requiere Matriz Municipal) | Sprint 2 |
+| **HU-MTR-14** | Registro de Consultas y Búsquedas Empresariales | Métricas | **3 SP** | Post 1 de Diciembre | Sprint 2 |
+| **HU-MTR-15** | Tablero de Demanda Insatisfecha (Política de Suelo) | Métricas | **5 SP** | Post 1 de Diciembre | Sprint 3 / V2.0 |
+
+---
+
+## 📌 Alcance de la Versión 1.0 (MVP) vs Versión 2.0 (Evolutivo)
+
+### 🚀 ¿Qué es la Versión 1.0 (MVP Integral)?
+Las **16 Historias de Usuario documentadas constituyen en su totalidad la Versión 1.0 (MVP Completo)** de la plataforma. Cubren los 4 pilares esenciales requeridos por la Dirección de Inversiones:
+1. **Pilar Ingesta:** Captura automatizada (Argenprop), normalización, geocodificación, deduplicación y carga complementaria por planillas / bajas comerciales.
+2. **Pilar Territorial (GIS):** Georreferenciación precisa, cruce con Zonificación 2020 y Camino del Buen Ayre.
+3. **Pilar Experiencia (UX):** Visualización interactiva en mapa, listado sincronizado, filtros multicriterio, filtro por rubro y fichas de comercialización.
+4. **Pilar Inteligencia & Monitoreo:** Registro de consultas empresariales, tablero de demanda insatisfecha y semáforo anti silencios.
+
+### 🔮 ¿Qué queda reservado para la Versión 2.0 (Fase Evolutiva)?
+Para no comprometer los tiempos ni complejizar innecesariamente la primera versión, quedan formalmente fuera de la V1.0 e identificados para una **Versión 2.0**:
+- **Scraping Multicanal Adicional:** Soporte para portales secundarios o complejos con protecciones avanzadas (Zonaprop, MercadoLibre Inmuebles, Properati).
+- **Integración Catastral Oficial:** Cruce con número de partida inmobiliaria ARBA y titularidad registral.
+- **Sistema de Autenticación y Perfiles (RBAC):** Login con roles diferenciados (Asesor, Director, Inmobiliaria Externa, Administrador).
+- **Notificaciones Automáticas a Inversores:** Envío automático de alertas por Email / WhatsApp ante el ingreso de nuevas parcelas que coincidan con demandas insatisfechas registradas.
+- **Integración por Webhook / API con el Sistema Municipal de Habilitaciones:** Ingesta desatendida en tiempo real cuando un inspector firma la baja de una habilitación en el palacio municipal.  
 
