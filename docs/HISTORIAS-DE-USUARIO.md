@@ -534,3 +534,4 @@ Siguiendo la directiva de no superar **3 SP por tarea técnica atómica**, las h
 - **Sprint 1 (MVP Operativo de Búsqueda y Cruce):** 34 SP  
 - **Sprint 2 (Inteligencia de Rubros, Autogestión y Demanda):** 14 SP  
 - **Sprint 3 (Métricas Estratégicas y Reportes Avanzados):** 5 SP  
+
