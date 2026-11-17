@@ -1,0 +1,80 @@
+{
+  "type": "FeatureCollection",
+  "name": "plan-buen-ayre-uf12",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "RC1",
+        "nombre": "Sector RC 1 - Buen Ayre Sur",
+        "descripcion": "Delimitado por Arroyo Morón, Las Flores (918), Miramar (979), Autopista Buen Ayre, Río Reconquista y Av. Pte. Perón",
+        "categoria": "logistica_pesada",
+        "aptoLogistica": true,
+        "color": "#1E88E5",
+        "opacidad": 0.45
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.6250, -34.5780],
+            [-58.6200, -34.5820],
+            [-58.6140, -34.5750],
+            [-58.6180, -34.5680],
+            [-58.6250, -34.5730],
+            [-58.6250, -34.5780]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "RC2",
+        "nombre": "Sector RC 2 - Buen Ayre Central",
+        "descripcion": "Delimitado por Juan Lavalle (900), Autopista Buen Ayre, Arroyo Morón y Río Reconquista",
+        "categoria": "logistica_pesada",
+        "aptoLogistica": true,
+        "color": "#1565C0",
+        "opacidad": 0.45
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.6260, -34.5720],
+            [-58.6180, -34.5680],
+            [-58.6200, -34.5600],
+            [-58.6270, -34.5640],
+            [-58.6260, -34.5720]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "RC3",
+        "nombre": "Sector RC 3 - Buen Ayre Norte / Ruta 8",
+        "descripcion": "Delimitado hacia Ruta Nacional N° 8 (Av. Eva Perón), Las Flores, Rosella y Entre Ríos",
+        "categoria": "logistica_pesada",
+        "aptoLogistica": true,
+        "color": "#0D47A1",
+        "opacidad": 0.45
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.6200, -34.5600],
+            [-58.6120, -34.5630],
+            [-58.6050, -34.5530],
+            [-58.6150, -34.5500],
+            [-58.6200, -34.5600]
+          ]
+        ]
+      }
+    }
+  ]
+}
+

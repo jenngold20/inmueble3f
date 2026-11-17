@@ -1,0 +1,191 @@
+{
+  "type": "FeatureCollection",
+  "name": "zonificacion-oficial-tres-de-febrero-2020",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "C1",
+        "nombre": "Área de Centralidad Caseros",
+        "categoria": "comercial",
+        "descripcion": "Centro cívico, comercial y bancario de Caseros (Av. San Martín, Urquiza y alrededores de la estación)",
+        "color": "#E65100",
+        "opacidad": 0.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.5720, -34.6020],
+            [-58.5580, -34.6020],
+            [-58.5580, -34.6120],
+            [-58.5720, -34.6120],
+            [-58.5720, -34.6020]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "C2",
+        "nombre": "Corredor Comercial Concentrador Ciudadela / Rivadavia",
+        "categoria": "comercial",
+        "descripcion": "Eje comercial de alta intensidad sobre Av. Rivadavia, Gaona y Marcelo T. de Alvear",
+        "color": "#FB8C00",
+        "opacidad": 0.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.5420, -34.6320],
+            [-58.5280, -34.6360],
+            [-58.5320, -34.6440],
+            [-58.5460, -34.6400],
+            [-58.5420, -34.6320]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "C3",
+        "nombre": "Centro Comercial Ciudad Jardín",
+        "categoria": "comercial",
+        "descripcion": "Centro comercial a cielo abierto de Ciudad Jardín Lomas del Palomar (Plaza del Avión / Boulevard San Martín)",
+        "color": "#FFA726",
+        "opacidad": 0.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.6040, -34.5950],
+            [-58.5920, -34.5950],
+            [-58.5920, -34.6030],
+            [-58.6040, -34.6030],
+            [-58.6040, -34.5950]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "RMI1",
+        "nombre": "Residencial Mixto Industrial Baja Densidad",
+        "categoria": "industrial",
+        "descripcion": "Zona con talleres livianos, depósitos pequeños y vivienda unifamiliar en Caseros Norte y Santos Lugares",
+        "color": "#5E35B1",
+        "opacidad": 0.35
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.5620, -34.5900],
+            [-58.5450, -34.5900],
+            [-58.5450, -34.6010],
+            [-58.5620, -34.6010],
+            [-58.5620, -34.5900]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "RMI2",
+        "nombre": "Residencial Mixto Industrial Media Densidad",
+        "categoria": "industrial",
+        "descripcion": "Polo productivo medio en Villa Bosch, Martín Coronado y Caseros Sur apto para manufactura y logística media",
+        "color": "#7E57C2",
+        "opacidad": 0.4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.5900, -34.5820],
+            [-58.5720, -34.5820],
+            [-58.5720, -34.5980],
+            [-58.5900, -34.5980],
+            [-58.5900, -34.5820]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "RMI3",
+        "nombre": "Residencial Mixto Industrial Alta Densidad",
+        "categoria": "industrial",
+        "descripcion": "Zona industrial intensiva en Loma Hermosa, Churruca y El Libertador apta para fábricas y logística pesada",
+        "color": "#9575CD",
+        "opacidad": 0.45
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.6080, -34.5550],
+            [-58.5900, -34.5550],
+            [-58.5900, -34.5750],
+            [-58.6080, -34.5750],
+            [-58.6080, -34.5550]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "R1a",
+        "nombre": "Residencial de Baja Densidad",
+        "categoria": "residencial",
+        "descripcion": "Áreas residenciales protegidas de baja altura (Sáenz Peña, Villa Raffo y Ciudad Jardín residencial)",
+        "color": "#78909C",
+        "opacidad": 0.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.5350, -34.6050],
+            [-58.5200, -34.6050],
+            [-58.5200, -34.6250],
+            [-58.5350, -34.6250],
+            [-58.5350, -34.6050]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "codigo": "R2a",
+        "nombre": "Residencial de Media / Alta Densidad",
+        "categoria": "residencial",
+        "descripcion": "Zona residencial con edificios de vivienda colectiva y comercio barrial de cercanía en Caseros y Ciudadela",
+        "color": "#90A4AE",
+        "opacidad": 0.3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-58.5550, -34.6150],
+            [-58.5350, -34.6150],
+            [-58.5350, -34.6320],
+            [-58.5550, -34.6320],
+            [-58.5550, -34.6150]
+          ]
+        ]
+      }
+    }
+  ]
+}
+
