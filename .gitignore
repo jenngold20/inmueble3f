@@ -42,3 +42,6 @@ Thumbs.db
 # Permitir datos estáticos del proyecto
 !data/
 !data/**
+
+# Assets auxiliares de fixtures HTML descargados por navegador
+data/html-fixtures/*_files/

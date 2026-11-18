@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 /* ==========================================================================
-   ENUMS DE DOMINIO DEL SCRAPER (Espejo de backend/src/schemas/dominio.schema.ts)
+   ENUMS DE DOMINIO DEL SCRAPER
    ========================================================================== */
 
-export const TipoInmuebleEnum = z.enum(['local', 'galpon', 'oficina', 'terreno']);
+export const TipoInmuebleEnum = z.enum(['local', 'galpon', 'oficina', 'terreno', 'otro']);
 export type TipoInmueble = z.infer<typeof TipoInmuebleEnum>;
 
 export const TipoOperacionEnum = z.enum(['venta', 'alquiler']);
@@ -36,6 +36,7 @@ export const AvisoCrudoSchema = z.object({
   tipo: TipoInmuebleEnum,
   operacion: TipoOperacionEnum,
   precio: z.number().nonnegative().optional().nullable(),
+  expensas: z.number().nonnegative().optional().nullable(),
   moneda: MonedaEnum.default('USD'),
   direccion: z.string().min(1, 'direccion es requerida'),
   localidad: z.string().min(1, 'localidad es requerida'),
@@ -43,6 +44,7 @@ export const AvisoCrudoSchema = z.object({
   lng: z.number().min(-180).max(180).optional().nullable(),
   superficieTotalM2: z.number().positive().optional().nullable(),
   superficieCubiertaM2: z.number().positive().optional().nullable(),
+  caracteristicasExtra: z.array(z.string()).default([]),
   anunciante: z.string().optional().nullable(),
   comercializadora: z.string().optional().nullable(),
   contactoTelefono: z.string().optional().nullable(),

@@ -63,11 +63,16 @@ export const runScrapeTest = (): void => {
         const m2 = aviso.superficieCubiertaM2 ? `${aviso.superficieCubiertaM2} m² cub.` : 'Sin m²';
         const geo = aviso.lat && aviso.lng ? `GPS: [${aviso.lat}, ${aviso.lng}]` : 'Sin GPS (Georef)';
 
+        const expensasStr = aviso.expensas ? ` (+ $${aviso.expensas.toLocaleString('es-AR')} expensas)` : '';
+        const tipoDetalle = aviso.tipo === 'otro' ? ' (Residencial / No comercial)' : '';
+        const extrasStr = aviso.caracteristicasExtra.length > 0 ? ` | Características: ${aviso.caracteristicasExtra.join(' • ')}` : '';
+
         console.log(`   ────────────────────────────────────────────────────────`);
-        console.log(`   #${idx + 1} | [${aviso.tipo.toUpperCase()}] ${aviso.titulo.slice(0, 50)}...`);
-        console.log(`      💰 Precio: ${p} | Operación: ${aviso.operacion.toUpperCase()}`);
-        console.log(`      📐 Superficie: ${m2} (Total: ${aviso.superficieTotalM2 || '-'} m²)`);
-        console.log(`      📍 Dirección: "${aviso.direccion}" (${aviso.localidad})`);
+        console.log(`   #${idx + 1} | 📍 ${aviso.direccion} (${aviso.localidad})`);
+        console.log(`      💰 Precio: ${p}${expensasStr} | Operación: ${aviso.operacion.toUpperCase()}`);
+        console.log(`      🏷️ Tipo: [${aviso.tipo.toUpperCase()}]${tipoDetalle}`);
+        console.log(`      📐 Superficie: ${m2} (Total: ${aviso.superficieTotalM2 || '-'} m²)${extrasStr}`);
+        console.log(`      📝 Título: "${aviso.titulo}"`);
         console.log(`      🌐 ${geo} | 📷 Fotos: ${aviso.fotos.length}`);
         console.log(`      🏢 Anunciante: ${aviso.anunciante || 'Inmobiliaria no especificada'}`);
         console.log(`      ✅ ZOD VALID: OK (idExterno: ${aviso.idExterno})`);

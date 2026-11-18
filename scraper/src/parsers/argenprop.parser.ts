@@ -52,7 +52,24 @@ export function normalizarPrecioMoneda(raw: string | null | undefined): {
 }
 
 /**
- * Normaliza valores de superficie ("450 m²", "600 m2 cubiertos", "1.200 m²")
+ * Extrae el valor numérico de expensas ("+ $85.000 expensas", "$ 115.000")
+ */
+export function normalizarExpensas(raw: string | null | undefined): number | null {
+  if (!raw || typeof raw !== 'string') {
+    return null;
+  }
+  const texto = raw.trim().toLowerCase();
+  if (texto.includes('no incluye') || texto.includes('sin expensas')) {
+    return null;
+  }
+  const digitos = texto.replace(/[^0-9]/g, '');
+  if (!digitos) return null;
+  const numero = parseInt(digitos, 10);
+  return isNaN(numero) || numero <= 0 ? null : numero;
+}
+
+/**
+ * Normaliza valores de superficie ("450 m²", "600 m2 cubiertos", "1.200 m²", "36 m² cubie.")
  */
 export function normalizarSuperficie(raw: string | number | null | undefined): number | null {
   if (raw === null || raw === undefined) return null;
@@ -67,13 +84,34 @@ export function normalizarSuperficie(raw: string | number | null | undefined): n
 }
 
 /**
- * Mapea tipologías textuales a los 4 enums oficiales del proyecto:
- * 'local' | 'galpon' | 'oficina' | 'terreno'
+ * Mapea tipologías textuales a los enums oficiales del proyecto:
+ * 'local' | 'galpon' | 'oficina' | 'terreno' | 'otro'
+ * Si es residencial (departamento, casa, ph), devuelve 'otro' para evitar
+ * etiquetarlo falsamente como galpón industrial.
  */
 export function normalizarTipoInmueble(raw: string | null | undefined): TipoInmueble {
-  if (!raw) return 'galpon';
+  if (!raw) return 'otro';
   const t = raw.trim().toLowerCase();
 
+  // 1. Detección residencial explícita
+  if (
+    t.includes('departamento') ||
+    t.includes('depto') ||
+    t.includes('monoambiente') ||
+    t.includes('casa') ||
+    t.includes('chalet') ||
+    t.includes('ph') ||
+    t.includes('duplex') ||
+    t.includes('cochera')
+  ) {
+    // Si además aclara apto profesional, puede ser oficina
+    if (t.includes('apto profesional') || t.includes('consultorio')) {
+      return 'oficina';
+    }
+    return 'otro';
+  }
+
+  // 2. Galpones y predios logísticos / industriales
   if (
     t.includes('galpon') ||
     t.includes('galpón') ||
@@ -87,19 +125,22 @@ export function normalizarTipoInmueble(raw: string | null | undefined): TipoInmu
     return 'galpon';
   }
 
+  // 3. Locales y fondos de comercio
   if (t.includes('local') || t.includes('comercial') || t.includes('negocio') || t.includes('fondo de comercio')) {
     return 'local';
   }
 
+  // 4. Oficinas y consultorios
   if (t.includes('oficina') || t.includes('consultorio') || t.includes('estudio')) {
     return 'oficina';
   }
 
+  // 5. Terrenos y parcelas
   if (t.includes('terreno') || t.includes('lote') || t.includes('fraccion') || t.includes('fracción')) {
     return 'terreno';
   }
 
-  return 'galpon';
+  return 'otro';
 }
 
 /**
@@ -158,6 +199,7 @@ interface NextDataProperty {
   propertyType?: string;
   operationType?: string;
   price?: { amount?: number; currency?: string };
+  expenses?: { amount?: number };
   location?: {
     address?: string;
     city?: string;
@@ -198,6 +240,7 @@ function extraerDesdeNextData($: cheerio.CheerioAPI, url: string): AvisoCrudo | 
       tipo,
       operacion,
       precio,
+      expensas: prop.expenses?.amount ?? null,
       moneda,
       direccion,
       localidad,
@@ -205,6 +248,7 @@ function extraerDesdeNextData($: cheerio.CheerioAPI, url: string): AvisoCrudo | 
       lng: prop.location?.longitude ?? null,
       superficieTotalM2: normalizarSuperficie(prop.surface?.total),
       superficieCubiertaM2: normalizarSuperficie(prop.surface?.covered),
+      caracteristicasExtra: [],
       anunciante: prop.advertiser?.name || null,
       comercializadora: prop.advertiser?.name || null,
       contactoTelefono: prop.advertiser?.phone || null,
@@ -245,6 +289,7 @@ function extraerDesdeSchemaOrg($: cheerio.CheerioAPI, url: string): AvisoCrudo |
       tipo: normalizarTipoInmueble(titulo),
       operacion: normalizarOperacion(json.offers?.businessFunction || titulo),
       precio,
+      expensas: null,
       moneda,
       direccion: typeof direccion === 'string' ? direccion.slice(0, 100) : titulo,
       localidad,
@@ -252,6 +297,7 @@ function extraerDesdeSchemaOrg($: cheerio.CheerioAPI, url: string): AvisoCrudo |
       lng,
       superficieTotalM2: null,
       superficieCubiertaM2: null,
+      caracteristicasExtra: [],
       anunciante: json.author?.name || null,
       comercializadora: json.author?.name || null,
       contactoTelefono: json.telephone || null,
@@ -276,28 +322,34 @@ function extraerFichaDesdeCSS($: cheerio.CheerioAPI, url: string): AvisoCrudo | 
   const rawPrecio = $('.price, .property-price, .card__price').first().text().trim();
   const { precio, moneda } = normalizarPrecioMoneda(rawPrecio);
 
+  const rawExpensas = $('.property-expenses, .card__expenses').first().text().trim();
+  const expensas = normalizarExpensas(rawExpensas);
+
   const rawDireccion = $('.location, .property-location, .card__address, address').first().text().trim();
   const direccion = rawDireccion || titulo;
   const localidad = normalizarLocalidad(direccion);
 
-  // Extracción de superficies desde textos
   let superficieCubiertaM2: number | null = null;
   let superficieTotalM2: number | null = null;
+  const caracteristicasExtra: string[] = [];
 
   $('li, .feature, p').each((_, el) => {
-    const texto = $(el).text().toLowerCase();
-    if (texto.includes('m²') || texto.includes('m2')) {
-      if (texto.includes('cub') && !superficieCubiertaM2) {
-        superficieCubiertaM2 = normalizarSuperficie(texto);
-      } else if (texto.includes('tot') && !superficieTotalM2) {
-        superficieTotalM2 = normalizarSuperficie(texto);
+    const texto = $(el).text().trim();
+    const tLower = texto.toLowerCase();
+
+    if (tLower.includes('m²') || tLower.includes('m2')) {
+      if (tLower.includes('cub') && !superficieCubiertaM2) {
+        superficieCubiertaM2 = normalizarSuperficie(tLower);
+      } else if (tLower.includes('tot') && !superficieTotalM2) {
+        superficieTotalM2 = normalizarSuperficie(tLower);
       } else if (!superficieCubiertaM2) {
-        superficieCubiertaM2 = normalizarSuperficie(texto);
+        superficieCubiertaM2 = normalizarSuperficie(tLower);
       }
+    } else if (texto.length > 2 && texto.length < 30 && !texto.includes('$')) {
+      caracteristicasExtra.push(texto);
     }
   });
 
-  // Fotos
   const fotos: string[] = [];
   $('img.gallery-image, .card__photos img, .gallery img').each((_, el) => {
     const src = $(el).attr('src') || $(el).attr('data-src');
@@ -318,6 +370,7 @@ function extraerFichaDesdeCSS($: cheerio.CheerioAPI, url: string): AvisoCrudo | 
     tipo: normalizarTipoInmueble(titulo),
     operacion: normalizarOperacion(titulo),
     precio,
+    expensas,
     moneda,
     direccion,
     localidad,
@@ -325,6 +378,7 @@ function extraerFichaDesdeCSS($: cheerio.CheerioAPI, url: string): AvisoCrudo | 
     lng: null,
     superficieTotalM2,
     superficieCubiertaM2,
+    caracteristicasExtra: caracteristicasExtra.slice(0, 5),
     anunciante,
     comercializadora: anunciante,
     contactoTelefono: telefono,
@@ -341,7 +395,7 @@ function extraerFichaDesdeCSS($: cheerio.CheerioAPI, url: string): AvisoCrudo | 
 
 function extraerDesdeListado($: cheerio.CheerioAPI, urlBase: string): AvisoCrudo[] {
   const avisos: AvisoCrudo[] = [];
-  
+
   // Seleccionar tarjetas sin duplicación de contenedores anidados
   let items = $('.listing__item');
   if (items.length === 0) {
@@ -353,53 +407,90 @@ function extraerDesdeListado($: cheerio.CheerioAPI, urlBase: string): AvisoCrudo
 
   items.each((idx, el) => {
     const item = $(el);
-    const idExterno = item.attr('data-item-id') || `arg-item-${idx + 1}`;
-    const titulo = item.find('.card__title, h2, h3, .title').first().text().trim();
-    if (!titulo) return;
+    const idExterno = item.attr('id') || item.attr('data-item-id') || item.attr('data-item-card') || `arg-item-${idx + 1}`;
 
+    // En Argenprop real: .card__address es la dirección destacada
+    const rawDireccion = item.find('.card__address, [data-card-direccion], address').first().text().trim();
+    
+    // El título descriptivo: .card__title o .card__info
+    const rawTitulo = item.find('.card__title, h2, h3, .title').first().text().trim();
+    const titulo = rawTitulo || rawDireccion;
+    if (!titulo && !rawDireccion) return;
+
+    const direccion = rawDireccion || titulo;
+    const localidad = normalizarLocalidad(direccion);
+
+    // Precios y Expensas
     const rawPrecio = item.find('.card__price, .price').first().text().trim();
     const { precio, moneda } = normalizarPrecioMoneda(rawPrecio);
 
-    const rawDireccion = item.find('.card__address, .address, .location').first().text().trim();
-    const direccion = rawDireccion || `${titulo}, Tres de Febrero`;
-    const localidad = normalizarLocalidad(direccion);
+    const rawExpensas = item.find('.card__expenses').first().text().trim();
+    const expensas = normalizarExpensas(rawExpensas);
 
-    const rawHref = item.find('a').attr('href') || `/aviso-${idExterno}`;
+    // URL del aviso
+    const rawHref = item.find('a.card, a').first().attr('href') || `/aviso-${idExterno}`;
     const url = rawHref.startsWith('http') ? rawHref : `${urlBase}${rawHref}`;
 
+    // Superficie y características principales (1 dorm, 10 años, 1 baño, etc.)
     let superficieCubiertaM2: number | null = null;
     let superficieTotalM2: number | null = null;
+    const caracteristicasExtra: string[] = [];
 
-    item.find('li, span').each((_, f) => {
-      const texto = $(f).text().toLowerCase();
-      if (texto.includes('m²') || texto.includes('m2')) {
-        if (texto.includes('tot')) {
-          superficieTotalM2 = normalizarSuperficie(texto);
+    let featureElements = item.find('.card__main-features li, ul.card__features li');
+    if (featureElements.length === 0) {
+      featureElements = item.find('ul li');
+    }
+
+    featureElements.each((_, f) => {
+      const texto = $(f).text().replace(/\s+/g, ' ').trim();
+      const tLower = texto.toLowerCase();
+      if (tLower.includes('m²') || tLower.includes('m2')) {
+        if (tLower.includes('tot')) {
+          superficieTotalM2 = normalizarSuperficie(tLower);
         } else if (!superficieCubiertaM2) {
-          superficieCubiertaM2 = normalizarSuperficie(texto);
+          superficieCubiertaM2 = normalizarSuperficie(tLower);
         }
+      } else if (
+        texto.length > 1 &&
+        texto.length < 35 &&
+        !texto.includes('$') &&
+        !tLower.includes('expensas') &&
+        !tLower.includes('publica')
+      ) {
+        caracteristicasExtra.push(texto);
       }
     });
 
+    // Fotos
     const fotos: string[] = [];
     item.find('img').each((_, img) => {
       const src = $(img).attr('src') || $(img).attr('data-src');
-      if (src && src.startsWith('http')) {
-        fotos.push(src);
+      if (src && (src.startsWith('http') || src.startsWith('./') || src.startsWith('/'))) {
+        fotos.push(src.startsWith('http') ? src : `https://www.argenprop.com${src.replace(/^\./, '')}`);
       }
     });
 
-    const anunciante = item.find('.card__advertiser, .advertiser').first().text().trim() || null;
+    const anunciante =
+      item.find('.card__agent-name').first().text().trim() ||
+      item.find('.card__agent img[alt]').first().attr('alt')?.trim() ||
+      item.find('.card__advertiser, .advertiser').first().text().trim() ||
+      null;
+
+    // Detectar tipología con el texto conjunto de dirección y título
+    const textoTipologia = `${titulo} ${direccion} ${url}`;
+    const tipo = normalizarTipoInmueble(textoTipologia);
+    const operacion = normalizarOperacion(textoTipologia);
 
     const avisoData = {
-      idExterno,
+      idExterno: String(idExterno),
       fuente: 'argenprop' as const,
       url,
       titulo,
-      descripcion: null,
-      tipo: normalizarTipoInmueble(titulo),
-      operacion: normalizarOperacion(titulo),
+      descripcion: item.find('.card__info, p').first().text().trim() || null,
+      tipo,
+      operacion,
       precio,
+      expensas,
       moneda,
       direccion,
       localidad,
@@ -407,6 +498,7 @@ function extraerDesdeListado($: cheerio.CheerioAPI, urlBase: string): AvisoCrudo
       lng: null,
       superficieTotalM2,
       superficieCubiertaM2,
+      caracteristicasExtra: [...new Set(caracteristicasExtra)].slice(0, 4),
       anunciante,
       comercializadora: anunciante,
       contactoTelefono: null,
