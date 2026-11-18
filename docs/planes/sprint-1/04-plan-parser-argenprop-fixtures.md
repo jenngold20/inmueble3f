@@ -56,8 +56,10 @@ Argenprop, al igual que los portales inmobiliarios modernos basados en Next.js /
    - Mapeo automático de tipologías a los enums del proyecto:
      - `"galpón" | "depósito" | "nave industrial" | "inmueble industrial"` $\rightarrow$ `'galpon'`
      - `"local" | "local comercial"` $\rightarrow$ `'local'`
-     - `"oficina"` $\rightarrow$ `'oficina'`
+     - `"oficina" | "apto profesional"` $\rightarrow$ `'oficina'`
      - `"terreno" | "lote" | "fracción"` $\rightarrow$ `'terreno'`
+     - `"departamento" | "monoambiente" | "casa" | "ph"` $\rightarrow$ `'otro'` (evita clasificar falsamente residenciales como industriales)
+   - Extracción de **expensas** (`expensas`), **caracteristicasExtra** (`1 dorm.`, `10 años`, `1 baño`) y **anunciante** (`.card__agent-name`).
    - Mapeo de operación:
      - `"alquiler"` $\rightarrow$ `'alquiler'`
      - `"venta"` $\rightarrow$ `'venta'`
