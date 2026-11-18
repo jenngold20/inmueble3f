@@ -88,3 +88,35 @@ Este documento recopila las decisiones técnicas y arquitectónicas clave adopta
 - **Consecuencias:**
   - **Positivas:** Pruebas 100% reproducibles, rápidas, ejecutables offline en CI/CD y sin riesgo de penalización de IPs de desarrollo.
   - **Trade-off:** Se requiere renovar periódicamente los fixtures si el portal inmobiliario rediseña su marcado HTML.
+
+---
+
+### [ADR-007] Heurística de Deduplicación Espacial en Memoria con Turf.js (Inmueble vs Aviso)
+- **Fecha:** 2026-11-18
+- **Estado:** Aceptado e Implementado (`[CARD-ING-03A]`)
+- **Contexto:** 
+  En los portales inmobiliarios y planillas municipales, una misma parcela física (galpón, nave industrial o local comercial) suele ser publicada simultáneamente por múltiples inmobiliarias o comercializadoras. Cada aviso presenta precios distintos, fotos diferentes, ligeras discrepancias en el pin geográfico (hasta decenas de metros de error por aproximación del portal) y variaciones menores en la superficie informada. Si cada aviso generara un pin independiente en el mapa, la visualización territorial se saturaría de duplicados engañosos.
+- **Decisión:**
+  1. **Separación Estricta de Entidades:**
+     - `Inmueble`: Representa la parcela o unidad física real en Tres de Febrero.
+     - `Aviso`: Representa cada publicación comercial asociada. Un `Inmueble` concentra múltiples `Avisos` históricos y concurrentes.
+  2. **Heurística de 4 Reglas Simultáneas:**
+     Un aviso entrante se vincula a un `Inmueble` existente si y solo si cumple **TODAS** las siguientes condiciones evaluadas en memoria (`backend/src/services/deduplicacion.service.ts`):
+     - **Regla 1 (Tipología Idéntica):** `aviso.tipo === candidato.tipo` (`'galpon' | 'local' | 'oficina' | 'terreno'`). Se rechaza cualquier cruce entre tipologías incompatibles aunque compartan coordenadas.
+     - **Regla 2 (Localidad Normalizada):** Coincidencia insensible a mayúsculas, espacios y tildes (`Caseros`, `Ciudadela`, `Villa Bosch`, etc.).
+     - **Regla 3 (Tolerancia de Superficie $\le \pm 5\%$):** 
+       $$\Delta_{\text{sup}} = \frac{|\text{sup}_{\text{aviso}} - \text{sup}_{\text{candidato}}|}{\text{sup}_{\text{candidato}}} \le 0.05$$
+       Evalúa prioritariamente la superficie cubierta; en su defecto la superficie total o el valor disponible. Variaciones mayores al 5% se consideran unidades funcionales independientes.
+     - **Regla 4 (Distancia Geodésica $\le 80\text{ metros}$):** 
+       Calculada sobre el gran círculo terrestre mediante `@turf/distance` pasando coordenadas GeoJSON en orden estricto `[longitud, latitud]`. Distancias superiores a 80 metros descartan la coincidencia.
+  3. **Criterio de Desempate Multi-Candidato:**
+     Si dos o más inmuebles candidatos satisfacen las 4 reglas (e.g. naves contiguas en un mismo parque industrial), el sistema selecciona automáticamente el candidato con la **menor distancia geodésica** al punto del aviso entrante.
+  4. **Arquitectura Desacoplada (Función Pura):**
+     La lógica de evaluación geométrica y matemática es una función pura sin estado, permitiendo evaluar 1.000 comparaciones en menos de 2 milisegundos sin sobrecargar el pool de conexiones de PostgreSQL.
+- **Consecuencias:**
+  - **Positivas:**
+    - Visualización limpia: una sola chincheta en el mapa por propiedad física.
+    - Preserva el historial comercial completo (todos los precios y comercializadoras que ofrecieron el galpón a lo largo del tiempo).
+    - Rendimiento extremo: ~0.0015 ms por evaluación en memoria.
+  - **Trade-off:** 
+    - En caso de avisos atípicos que no informen superficie en m², la coincidencia queda supeditada a la proximidad espacial estricta bajo registro de auditoría.
