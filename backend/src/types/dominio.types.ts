@@ -11,6 +11,17 @@ import {
   AvisoCrudoSchema,
 } from '../schemas/dominio.schema.js';
 
+export type {
+  TipoInmueble,
+  TipoOperacion,
+  Moneda,
+  FuenteDatos,
+  ZonaCodigo,
+  Macrozona,
+  EstadoAviso,
+  EstadoCorrida,
+} from '../schemas/dominio.schema.js';
+
 /* ==========================================================================
    TIPOS DE ENTIDAD INFERIDOS DESDE ZOD (Strict Mode)
    ========================================================================== */
