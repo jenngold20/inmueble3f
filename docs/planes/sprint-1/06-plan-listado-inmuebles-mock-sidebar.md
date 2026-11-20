@@ -32,12 +32,16 @@ frontend/
     ├── hooks/
     │   └── useInmuebles.ts               # NUEVO: Estado de carga, error y datos
     ├── constants/
-    │   └── zonas.ts                      # NUEVO: Color y etiqueta por código de zona
+    │   ├── zonas.ts                      # NUEVO: Color y etiqueta por código de zona
+    │   └── inmuebles.ts                  # NUEVO: Etiquetas de tipo/operación y color de pin por tipo
     ├── utils/
-    │   └── format.ts                     # NUEVO: Formato de precio, moneda y m²
+    │   ├── format.ts                     # NUEVO: Formato de precio, moneda y m²
+    │   └── inmueble.ts                   # NUEVO: Aviso principal, avisos adicionales y superficie destacada
     ├── components/
     │   ├── FiltersPanel.tsx              # NUEVO: Bloque de filtros extraído del Sidebar (sin cambios de lógica)
-    │   ├── InmuebleCard.tsx              # NUEVO: Tarjeta responsiva del inmueble
+    │   ├── InmuebleCard.tsx              # NUEVO: Tarjeta responsiva del inmueble (+ skeleton de carga)
+    │   ├── InmuebleIcono.tsx             # NUEVO: Ícono SVG por tipo de inmueble (placeholder de imagen)
+    │   ├── ZonaBadge.tsx                 # NUEVO: Badge accesible de zonificación (compartido por tarjeta y popup)
     │   ├── Sidebar.tsx                   # MODIFICAR: Compone FiltersPanel + listado
     │   └── MapView.tsx                   # MODIFICAR: Reemplaza el marcador de prueba por pines con popup
     └── App.tsx                           # MODIFICAR: Consume useInmuebles y reparte los datos
@@ -65,7 +69,7 @@ Replica los enums oficiales de `docs/DOMINIOS_Y_DATOS.md` y la forma de `backend
 > **Nota de contrato:** las fechas viajan como **string ISO 8601** (así llegan por HTTP). El `InmuebleSchema` del backend usa `z.date()`, que no valida respuestas JSON; cuando se construya el endpoint real habrá que definir el esquema de respuesta con fechas en string. Los enums quedan duplicados entre paquetes porque no existe un paquete compartido en el stack; el diccionario `DOMINIOS_Y_DATOS.md` es la fuente de verdad.
 
 #### B. Aviso Principal de un Inmueble
-Un inmueble puede tener varios avisos. La tarjeta y el popup muestran el **aviso principal**, definido como el aviso `activo` con `fechaVistoUltimaVez` más reciente (si no hay activos, el primero de la lista). Si el inmueble tiene más de un aviso, la tarjeta muestra el indicador **"+N avisos"**.
+Un inmueble puede tener varios avisos. La tarjeta y el popup muestran el **aviso principal**, definido como el aviso `activo` con `fechaVistoUltimaVez` más reciente (si no hay activos, el primero de la lista). La tarjeta y el popup muestran el indicador **"+N avisos"**, donde N es la cantidad de **otros avisos activos** (un aviso en estado `baja` no cuenta, para no sugerir oferta que ya no existe).
 
 #### C. Mock de 25 Propiedades (`mocks/mock-inmuebles.json`)
 | Criterio | Distribución |
@@ -74,7 +78,7 @@ Un inmueble puede tener varios avisos. La tarjeta y el popup muestran el **aviso
 | **Localidades** | Caseros (10), Ciudadela (8), Loma Hermosa (7) |
 | **Operación** | Mezcla de venta y alquiler |
 | **Moneda** | USD y ARS |
-| **Casos especiales** | 2 inmuebles con precio nulo (se muestra "Consultar") y 3 inmuebles con 2 avisos |
+| **Casos especiales** | 2 inmuebles con precio nulo (se muestra "Consultar") y 3 inmuebles con 2 avisos (2 con ambos activos y 1 con un aviso en `baja`) |
 | **Zonas** | Variedad de códigos, incluyendo al menos un caso `RC1` (Buen Ayre) |
 
 Reglas de calidad del mock:
@@ -115,7 +119,7 @@ Reglas de calidad del mock:
 - Diseño Tailwind responsivo verificado en los anchos del sidebar (`w-80` = 320 px y `md:w-96` = 384 px).
 
 #### B. `Sidebar.tsx`
-- El bloque de filtros deshabilitados se extrae **sin cambios de lógica** a `FiltersPanel.tsx`, para que `CARD-MAP-10` construya sobre él sin conflictos de estructura.
+- El bloque de filtros deshabilitados se extrae **sin cambios de lógica** a `FiltersPanel.tsx`, para que `CARD-MAP-10` construya sobre él sin conflictos de estructura. Mientras los filtros estén deshabilitados se muestran dentro de un `<details>` **colapsado por defecto** (accesible por teclado, sin JavaScript adicional), para que el listado tenga prioridad visual.
 - El listado ocupa el espacio restante con scroll propio y un encabezado con el contador ("25 inmuebles").
 - Estados explícitos: **cargando**, **error** (con botón de reintento) y **vacío** ("No se encontraron inmuebles con estos criterios").
 - El aviso *Walking Skeleton (Fase 0)* se reemplaza por el aviso de **"Datos de prueba"**.
@@ -172,13 +176,12 @@ Se agrega **una sola dependencia**: `zod@^3.24.2` en `/frontend`.
 ---
 
 ### 9. Flujo Git
-- **Rama:** `feat/listado-inmuebles-mock-sidebar`, a crear desde `dev` (regla de `CONTRIBUTING.md`; `main` está protegida).
-- **Pendiente previo:** resolver los cambios sin commit en `dev` (`docs/CONTRIBUTING.md` modificado y `.env.example` borrado) antes de crear la rama.
-- **Commits previstos** (español, minúsculas, Conventional Commits):
+- **Rama:** `feat/listado-inmuebles-mock-sidebar`, creada desde `dev` (regla de `CONTRIBUTING.md`; `main` está protegida). El plan es su primer commit.
+- **Cambios ajenos en el working tree:** `docs/CONTRIBUTING.md` modificado y `.env.example` borrado no pertenecen a esta tarjeta. No se incluyen en sus commits: se agregan siempre archivos específicos, nunca `git add .`.
+- **Commits previstos** (español, minúsculas, Conventional Commits; cada uno compila por separado):
   1. `chore(frontend): agregar zod para validar contratos de datos`
   2. `feat(frontend): definir esquema de inmueble y mock de 25 propiedades`
-  3. `feat(frontend): agregar servicio y hook de inmuebles`
-  4. `refactor(frontend): extraer panel de filtros del sidebar`
-  5. `feat(frontend): crear tarjeta de inmueble con badge de zona`
-  6. `feat(frontend): renderizar listado en sidebar y pines con popup en el mapa`
+  3. `feat(frontend): agregar servicio, hook, constantes y utilidades de inmuebles`
+  4. `feat(frontend): crear tarjeta de inmueble, badge de zona y panel de filtros`
+  5. `feat(frontend): renderizar listado en sidebar y pines con popup en el mapa`
 - **Regla estricta:** no se realizan commits ni pushes remotos hasta que el plan sea aprobado y el código esté probado. El PR apunta a `dev`.
