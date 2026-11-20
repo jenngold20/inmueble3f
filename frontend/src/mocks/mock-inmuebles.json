@@ -1,0 +1,744 @@
+[
+  {
+    "id": "fa7069a3-fdbf-453d-ba89-8c12f591ace7",
+    "direccion": "Av. San Martín 2450",
+    "localidad": "Caseros",
+    "lat": -34.606445,
+    "lng": -58.560844,
+    "superficieTotalM2": 140,
+    "superficieCubiertaM2": 120,
+    "tipo": "local",
+    "zonaCodigo": "C1",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "aa39f9c1-ad27-4f48-96dc-208f7b6c3148",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/local-caseros-1-1",
+        "titulo": "Local comercial sobre avenida principal",
+        "precio": 185000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Propiedades Demo Norte",
+        "contactoTelefono": "+54 11 5550-0100",
+        "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "8f91628a-b72b-4e26-aa9c-e2bfdca22bb5",
+    "direccion": "Urquiza 310",
+    "localidad": "Caseros",
+    "lat": -34.606588,
+    "lng": -58.565418,
+    "superficieTotalM2": 95,
+    "superficieCubiertaM2": 85,
+    "tipo": "local",
+    "zonaCodigo": "C1",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "ce687bf0-eaca-4655-9d25-26cabe8f0775",
+        "fuente": "manual_municipal",
+        "url": "https://ejemplo.test/avisos/local-caseros-2-1",
+        "titulo": "Local a metros de la estación",
+        "precio": 1450000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Inmobiliaria Ejemplo Oeste",
+        "contactoTelefono": "+54 11 5550-0101",
+        "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "9f326634-5ff6-4c16-a4ab-859b2d135f43",
+    "direccion": "Rawson 1180",
+    "localidad": "Caseros",
+    "lat": -34.605116,
+    "lng": -58.565121,
+    "superficieTotalM2": 60,
+    "superficieCubiertaM2": 60,
+    "tipo": "local",
+    "zonaCodigo": "C1",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "d0563034-6c44-4845-960b-0fc15b08a7c5",
+        "fuente": "planilla_externa",
+        "url": "https://ejemplo.test/avisos/local-caseros-3-1",
+        "titulo": "Local con vidriera a la calle",
+        "precio": null,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Estudio Ficticio & Asoc.",
+        "contactoTelefono": "+54 11 5550-0102",
+        "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "7028e9b3-c3bb-4e6e-bf36-1cccb073d39d",
+    "direccion": "Av. San Martín 2890",
+    "localidad": "Caseros",
+    "lat": -34.605826,
+    "lng": -58.569814,
+    "superficieTotalM2": 70,
+    "superficieCubiertaM2": 70,
+    "tipo": "oficina",
+    "zonaCodigo": "C1",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "5cfd16b2-867b-402b-8f2c-4a2e9dd70d7d",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/oficina-caseros-4-1",
+        "titulo": "Oficina en primer piso con vista a la plaza",
+        "precio": 620000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Gestión Inmueble de Prueba",
+        "contactoTelefono": "+54 11 5550-0103",
+        "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "f7416aee-b5ea-48d5-89f2-81b3e80fd301",
+    "direccion": "Mansilla 640",
+    "localidad": "Caseros",
+    "lat": -34.596892,
+    "lng": -58.5511,
+    "superficieTotalM2": 700,
+    "superficieCubiertaM2": 520,
+    "tipo": "galpon",
+    "zonaCodigo": "RMI1",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "592a8789-b7c5-4549-a30e-6eaf1343e25d",
+        "fuente": "manual_municipal",
+        "url": "https://ejemplo.test/avisos/galpon-caseros-5-1",
+        "titulo": "Galpón con oficinas y playa de carga",
+        "precio": 3200,
+        "moneda": "USD",
+        "operacion": "alquiler",
+        "comercializadora": "Broker Muestra S.A.",
+        "contactoTelefono": "+54 11 5550-0104",
+        "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "c325aff1-0533-472e-9836-7e007caf7957",
+    "direccion": "Pueyrredón 1520",
+    "localidad": "Caseros",
+    "lat": -34.59359,
+    "lng": -58.559186,
+    "superficieTotalM2": 1100,
+    "superficieCubiertaM2": 800,
+    "tipo": "galpon",
+    "zonaCodigo": "RMI1",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "4137f0d0-4520-4ba2-b3b0-30460025c6ba",
+        "fuente": "planilla_externa",
+        "url": "https://ejemplo.test/avisos/galpon-caseros-6-1",
+        "titulo": "Galpón industrial con portón alto",
+        "precio": 410000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Propiedades Demo Norte",
+        "contactoTelefono": "+54 11 5550-0105",
+        "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      },
+      {
+        "id": "ece63b5e-3f29-4f36-83fb-58defc991d6e",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/galpon-caseros-6-2",
+        "titulo": "Galpón industrial con portón alto",
+        "precio": 422000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Inmobiliaria Ejemplo Oeste",
+        "contactoTelefono": "+54 11 5550-0106",
+        "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "68a01b91-4d1b-4023-b87e-1e45903f0b43",
+    "direccion": "Rawson 3340",
+    "localidad": "Caseros",
+    "lat": -34.59935,
+    "lng": -58.556273,
+    "superficieTotalM2": 1250,
+    "superficieCubiertaM2": null,
+    "tipo": "terreno",
+    "zonaCodigo": "RMI1",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "1c86d416-5ff2-4532-b9d7-0cba6656c4b3",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/terreno-caseros-7-1",
+        "titulo": "Lote apto uso industrial liviano",
+        "precio": 260000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Inmobiliaria Ejemplo Oeste",
+        "contactoTelefono": "+54 11 5550-0107",
+        "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "feeaa203-1ed6-4c00-aa54-1710560605df",
+    "direccion": "Urquiza 4760",
+    "localidad": "Caseros",
+    "lat": -34.593373,
+    "lng": -58.581608,
+    "superficieTotalM2": 1800,
+    "superficieCubiertaM2": 1200,
+    "tipo": "galpon",
+    "zonaCodigo": "RMI2",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "8c599ccb-e662-49b6-ac65-149f425ec228",
+        "fuente": "manual_municipal",
+        "url": "https://ejemplo.test/avisos/galpon-caseros-8-1",
+        "titulo": "Nave industrial con puente grúa",
+        "precio": 5400,
+        "moneda": "USD",
+        "operacion": "alquiler",
+        "comercializadora": "Estudio Ficticio & Asoc.",
+        "contactoTelefono": "+54 11 5550-0108",
+        "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "9d0ca69e-9fac-4465-a26e-657a99ab28f2",
+    "direccion": "Mansilla 4210",
+    "localidad": "Caseros",
+    "lat": -34.587752,
+    "lng": -58.579723,
+    "superficieTotalM2": 2100,
+    "superficieCubiertaM2": 1500,
+    "tipo": "galpon",
+    "zonaCodigo": "RMI2",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "b85b9d4b-e788-43cf-89e7-d6a6fefa71f7",
+        "fuente": "planilla_externa",
+        "url": "https://ejemplo.test/avisos/galpon-caseros-9-1",
+        "titulo": "Galpón logístico con doble acceso",
+        "precio": 780000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Gestión Inmueble de Prueba",
+        "contactoTelefono": "+54 11 5550-0109",
+        "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "5e9758f8-38e6-47db-843f-2150b5016f2a",
+    "direccion": "Pueyrredón 2970",
+    "localidad": "Caseros",
+    "lat": -34.584516,
+    "lng": -58.574978,
+    "superficieTotalM2": 900,
+    "superficieCubiertaM2": 650,
+    "tipo": "galpon",
+    "zonaCodigo": "RMI2",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "45bc2af5-b004-445b-981d-f6231e08343c",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/galpon-caseros-10-1",
+        "titulo": "Depósito con oficinas administrativas",
+        "precio": 3800000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Broker Muestra S.A.",
+        "contactoTelefono": "+54 11 5550-0110",
+        "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "50c74ec5-f90e-451e-8112-50a3e5c22ce5",
+    "direccion": "Av. Rivadavia 11200",
+    "localidad": "Ciudadela",
+    "lat": -34.639069,
+    "lng": -58.543302,
+    "superficieTotalM2": 170,
+    "superficieCubiertaM2": 150,
+    "tipo": "local",
+    "zonaCodigo": "C2",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "41ef08e7-f7f0-4619-8488-ddf5ff6c6ab1",
+        "fuente": "manual_municipal",
+        "url": "https://ejemplo.test/avisos/local-ciudadela-11-1",
+        "titulo": "Local en corredor comercial de alto tránsito",
+        "precio": 240000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Propiedades Demo Norte",
+        "contactoTelefono": "+54 11 5550-0111",
+        "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "af50eceb-57d7-4e0e-9d9d-b3a1bba2025f",
+    "direccion": "Gaona 880",
+    "localidad": "Ciudadela",
+    "lat": -34.63618,
+    "lng": -58.53096,
+    "superficieTotalM2": 110,
+    "superficieCubiertaM2": 110,
+    "tipo": "local",
+    "zonaCodigo": "C2",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "529abda5-9450-4b0d-bb41-1f24e74d2747",
+        "fuente": "planilla_externa",
+        "url": "https://ejemplo.test/avisos/local-ciudadela-12-1",
+        "titulo": "Local esquina con vidriera doble",
+        "precio": 2100000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Inmobiliaria Ejemplo Oeste",
+        "contactoTelefono": "+54 11 5550-0112",
+        "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      },
+      {
+        "id": "40d87305-c85e-489d-8875-55a7aa150cd9",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/local-ciudadela-12-2",
+        "titulo": "Local esquina con vidriera doble",
+        "precio": 2268000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Estudio Ficticio & Asoc.",
+        "contactoTelefono": "+54 11 5550-0113",
+        "fechaVistoUltimaVez": "2026-10-09T12:00:00.000Z",
+        "estado": "baja",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "7cecbe30-4b0e-489a-9ee1-0476208d8e8f",
+    "direccion": "Marcelo T. de Alvear 1530",
+    "localidad": "Ciudadela",
+    "lat": -34.640451,
+    "lng": -58.540936,
+    "superficieTotalM2": 48,
+    "superficieCubiertaM2": 48,
+    "tipo": "local",
+    "zonaCodigo": "C2",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "fceb75d6-1c37-4993-b945-d2cfbbf3479e",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/local-ciudadela-13-1",
+        "titulo": "Local chico apto gastronomía",
+        "precio": 980000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Estudio Ficticio & Asoc.",
+        "contactoTelefono": "+54 11 5550-0114",
+        "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "180dd9f0-5882-4701-88d3-8cfd9dba7371",
+    "direccion": "Av. Rivadavia 10640",
+    "localidad": "Ciudadela",
+    "lat": -34.638971,
+    "lng": -58.533347,
+    "superficieTotalM2": 55,
+    "superficieCubiertaM2": 55,
+    "tipo": "oficina",
+    "zonaCodigo": "C2",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "bae77eed-4a43-4e6b-a06f-e45c41f095b5",
+        "fuente": "manual_municipal",
+        "url": "https://ejemplo.test/avisos/oficina-ciudadela-14-1",
+        "titulo": "Oficina moderna con aire acondicionado",
+        "precio": 540000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Gestión Inmueble de Prueba",
+        "contactoTelefono": "+54 11 5550-0115",
+        "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "df45a5b3-9dbb-4d65-b6d9-cb014e48933e",
+    "direccion": "Av. Márquez 790",
+    "localidad": "Ciudadela",
+    "lat": -34.63935,
+    "lng": -58.535712,
+    "superficieTotalM2": 62,
+    "superficieCubiertaM2": 62,
+    "tipo": "oficina",
+    "zonaCodigo": "C2",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "b73d63e7-52c7-4226-983a-cfce66f8db91",
+        "fuente": "planilla_externa",
+        "url": "https://ejemplo.test/avisos/oficina-ciudadela-15-1",
+        "titulo": "Oficina lista para escriturar",
+        "precio": 98000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Broker Muestra S.A.",
+        "contactoTelefono": "+54 11 5550-0116",
+        "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "e2ea4085-75fe-42fd-8c14-4c6406dda333",
+    "direccion": "Mitre 2210",
+    "localidad": "Ciudadela",
+    "lat": -34.628594,
+    "lng": -58.54997,
+    "superficieTotalM2": 80,
+    "superficieCubiertaM2": 75,
+    "tipo": "local",
+    "zonaCodigo": "R2a",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "8e4efb6d-60b8-4ce1-a905-ff9a4a9d870d",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/local-ciudadela-16-1",
+        "titulo": "Local barrial con depósito",
+        "precio": 720000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Propiedades Demo Norte",
+        "contactoTelefono": "+54 11 5550-0117",
+        "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "26488758-f615-4c68-82f0-0a737d4f0ea7",
+    "direccion": "Sarmiento 640",
+    "localidad": "Ciudadela",
+    "lat": -34.618052,
+    "lng": -58.538116,
+    "superficieTotalM2": 45,
+    "superficieCubiertaM2": 45,
+    "tipo": "oficina",
+    "zonaCodigo": "R2a",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "90c268fd-e9a7-4417-8887-193b94413999",
+        "fuente": "manual_municipal",
+        "url": "https://ejemplo.test/avisos/oficina-ciudadela-17-1",
+        "titulo": "Oficina o consultorio en planta baja",
+        "precio": 72000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Inmobiliaria Ejemplo Oeste",
+        "contactoTelefono": "+54 11 5550-0118",
+        "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "a6670e9b-78a5-42b1-b1da-5e3dbe61d0dc",
+    "direccion": "Gaona 3150",
+    "localidad": "Ciudadela",
+    "lat": -34.619804,
+    "lng": -58.539788,
+    "superficieTotalM2": 420,
+    "superficieCubiertaM2": null,
+    "tipo": "terreno",
+    "zonaCodigo": "R2a",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "377dae2b-5fbc-495c-b88b-ec14d3d9e46f",
+        "fuente": "planilla_externa",
+        "url": "https://ejemplo.test/avisos/terreno-ciudadela-18-1",
+        "titulo": "Terreno en zona residencial consolidada",
+        "precio": 135000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Estudio Ficticio & Asoc.",
+        "contactoTelefono": "+54 11 5550-0119",
+        "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "eda71a21-da46-422c-81ea-51ae0c06d08f",
+    "direccion": "Av. Eva Perón 5400",
+    "localidad": "Loma Hermosa",
+    "lat": -34.561231,
+    "lng": -58.603423,
+    "superficieTotalM2": 3200,
+    "superficieCubiertaM2": 2200,
+    "tipo": "galpon",
+    "zonaCodigo": "RMI3",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "cf3ebf62-a7aa-49d5-aabc-c4aca71a9f2d",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/galpon-loma-hermosa-19-1",
+        "titulo": "Galpón de gran superficie con playa de maniobras",
+        "precio": 7800,
+        "moneda": "USD",
+        "operacion": "alquiler",
+        "comercializadora": "Gestión Inmueble de Prueba",
+        "contactoTelefono": "+54 11 5550-0120",
+        "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "8ec98843-7b68-4249-a254-6084f7432ef4",
+    "direccion": "Av. Libertador 2250",
+    "localidad": "Loma Hermosa",
+    "lat": -34.570205,
+    "lng": -58.602985,
+    "superficieTotalM2": 3900,
+    "superficieCubiertaM2": 2800,
+    "tipo": "galpon",
+    "zonaCodigo": "RMI3",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "ff831287-d58f-43a8-b363-50ee7cba9279",
+        "fuente": "manual_municipal",
+        "url": "https://ejemplo.test/avisos/galpon-loma-hermosa-20-1",
+        "titulo": "Complejo industrial con oficinas y vestuarios",
+        "precio": 1350000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Broker Muestra S.A.",
+        "contactoTelefono": "+54 11 5550-0121",
+        "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      },
+      {
+        "id": "18f1d2af-b1c4-4b82-bf34-85e93099b33a",
+        "fuente": "planilla_externa",
+        "url": "https://ejemplo.test/avisos/galpon-loma-hermosa-20-2",
+        "titulo": "Complejo industrial con oficinas y vestuarios",
+        "precio": 1391000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Propiedades Demo Norte",
+        "contactoTelefono": "+54 11 5550-0122",
+        "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "782952af-c9b5-44a7-903b-d2ae5d830f9a",
+    "direccion": "Churruca 780",
+    "localidad": "Loma Hermosa",
+    "lat": -34.561195,
+    "lng": -58.597932,
+    "superficieTotalM2": 1300,
+    "superficieCubiertaM2": 900,
+    "tipo": "galpon",
+    "zonaCodigo": "RMI3",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "0cc6facd-615f-4453-91d6-15b92bec3980",
+        "fuente": "planilla_externa",
+        "url": "https://ejemplo.test/avisos/galpon-loma-hermosa-21-1",
+        "titulo": "Galpón con altura libre de 8 metros",
+        "precio": 5200000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Propiedades Demo Norte",
+        "contactoTelefono": "+54 11 5550-0123",
+        "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "1f2d0712-2ab6-45d8-b32f-18bdd113325c",
+    "direccion": "Av. Eva Perón 6100",
+    "localidad": "Loma Hermosa",
+    "lat": -34.561161,
+    "lng": -58.595646,
+    "superficieTotalM2": 2400,
+    "superficieCubiertaM2": null,
+    "tipo": "terreno",
+    "zonaCodigo": "RMI3",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "45098ebe-9b31-4ab5-9a2e-93724f529748",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/terreno-loma-hermosa-22-1",
+        "titulo": "Fracción apta industria, servicios en el frente",
+        "precio": null,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Inmobiliaria Ejemplo Oeste",
+        "contactoTelefono": "+54 11 5550-0124",
+        "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "d7ac606e-e690-4f43-8c8e-69002c270792",
+    "direccion": "Churruca 1960",
+    "localidad": "Loma Hermosa",
+    "lat": -34.571023,
+    "lng": -58.605024,
+    "superficieTotalM2": 150,
+    "superficieCubiertaM2": 130,
+    "tipo": "local",
+    "zonaCodigo": "RMI3",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "f952c7e2-c389-42a3-81a9-8daf9a69a65c",
+        "fuente": "manual_municipal",
+        "url": "https://ejemplo.test/avisos/local-loma-hermosa-23-1",
+        "titulo": "Local sobre calle comercial del barrio",
+        "precio": 880000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Estudio Ficticio & Asoc.",
+        "contactoTelefono": "+54 11 5550-0125",
+        "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "c0c9361c-8d92-40d6-9558-f81f084d2636",
+    "direccion": "Camino del Buen Ayre 1800",
+    "localidad": "Loma Hermosa",
+    "lat": -34.573584,
+    "lng": -58.622619,
+    "superficieTotalM2": 6000,
+    "superficieCubiertaM2": 3500,
+    "tipo": "galpon",
+    "zonaCodigo": "RC1",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "fb86f6b6-e163-49a1-9382-4df260242e54",
+        "fuente": "planilla_externa",
+        "url": "https://ejemplo.test/avisos/galpon-loma-hermosa-24-1",
+        "titulo": "Galpón logístico junto a la autopista",
+        "precio": 2100000,
+        "moneda": "USD",
+        "operacion": "venta",
+        "comercializadora": "Gestión Inmueble de Prueba",
+        "contactoTelefono": "+54 11 5550-0126",
+        "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  },
+  {
+    "id": "b1011e61-5469-484f-9be7-aeb8d7fa935b",
+    "direccion": "Av. Libertador 2480",
+    "localidad": "Loma Hermosa",
+    "lat": -34.563163,
+    "lng": -58.597579,
+    "superficieTotalM2": 40,
+    "superficieCubiertaM2": 40,
+    "tipo": "oficina",
+    "zonaCodigo": "RMI3",
+    "macrozona": null,
+    "avisos": [
+      {
+        "id": "747bdc36-1e85-4b7c-a298-11e4a6aeb811",
+        "fuente": "argenprop",
+        "url": "https://ejemplo.test/avisos/oficina-loma-hermosa-25-1",
+        "titulo": "Oficina en edificio de uso mixto",
+        "precio": 410000,
+        "moneda": "ARS",
+        "operacion": "alquiler",
+        "comercializadora": "Broker Muestra S.A.",
+        "contactoTelefono": "+54 11 5550-0127",
+        "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
+        "estado": "activo",
+        "fotos": []
+      }
+    ]
+  }
+]
