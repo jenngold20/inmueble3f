@@ -6,6 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "scrape:test": "tsx src/index.ts",
+    "scrape:json": "tsx src/scripts/export-avisos-json.ts",
     "build": "tsc"
   },
   "dependencies": {

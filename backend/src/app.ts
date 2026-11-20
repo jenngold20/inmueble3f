@@ -8,7 +8,8 @@ export const createApp = (): Express => {
 
   // Middlewares globales
   app.use(cors());
-  app.use(express.json());
+  // 2 MB: el default de 100 kB no alcanza para lotes con descripción y fotos.
+  app.use(express.json({ limit: '2mb' }));
 
   // Rutas base de la API
   app.use('/api', apiRouter);

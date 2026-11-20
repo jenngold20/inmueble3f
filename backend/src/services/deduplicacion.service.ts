@@ -1,4 +1,5 @@
 import distance from '@turf/distance';
+import type { Transaction } from 'sequelize';
 import type { TipoInmueble } from '../types/dominio.types.js';
 import { InmuebleModel } from '../models/Inmueble.model.js';
 
@@ -321,14 +322,19 @@ export function evaluarCoincidenciaInmueble(
 /**
  * Consulta candidatos en PostgreSQL indexados por (localidad, tipo)
  * y evalúa la coincidencia con el aviso entrante en memoria.
+ *
+ * `transaction` es opcional para que la ingesta pueda resolver el Inmueble
+ * dentro de la misma transacción corta del aviso (CARD-ING-01B).
  */
 export async function buscarInmuebleCoincidenteEnBD(
-  aviso: AvisoParaDeduplicar
+  aviso: AvisoParaDeduplicar,
+  transaction?: Transaction
 ): Promise<ResultadoDeduplicacion> {
   const candidatosBD = await InmuebleModel.findAll({
     where: {
       tipo: aviso.tipo,
     },
+    transaction,
   });
 
   // Mapear instancias de Sequelize a la interfaz InmuebleCandidato
