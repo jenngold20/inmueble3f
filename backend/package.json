@@ -9,6 +9,7 @@
     "geo:verify": "tsx src/scripts/verificar-geojson.ts",
     "geo:service-test": "tsx src/scripts/test-geo-service.ts",
     "dedup:test": "tsx src/scripts/test-deduplicacion.ts",
+    "ingesta:test": "tsx src/scripts/test-ingesta.ts",
     "db:sync": "tsx src/scripts/sync-db.ts",
     "build": "tsc",
     "start": "node dist/index.js"

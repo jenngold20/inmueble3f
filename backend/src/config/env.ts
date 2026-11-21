@@ -14,6 +14,7 @@ const envSchema = z.object({
   POSTGRES_DB: z.string().min(1, 'POSTGRES_DB es requerido'),
   POSTGRES_HOST: z.string().default('localhost'),
   POSTGRES_PORT: z.coerce.number().default(5432),
+  INGESTA_MAX_AVISOS_LOTE: z.coerce.number().int().positive().max(5000).default(500),
 });
 
 const parseEnv = () => {
