@@ -11,7 +11,7 @@ const customIcon = L.divIcon({
   className: 'custom-leaflet-pin',
   html: `
     <div style="
-      background-color: #0284c7;
+      background-color: #175588;
       width: 32px;
       height: 32px;
       border-radius: 50% 50% 50% 0;
@@ -52,9 +52,9 @@ export const MapView: React.FC = () => {
         <Marker position={TRES_DE_FEBRERO_CENTER} icon={customIcon}>
           <Popup>
             <div className="text-xs p-1">
-              <strong className="block text-sky-800 text-sm mb-1">Tres de Febrero</strong>
+              <strong className="block text-municipal-800 text-sm mb-1">Tres de Febrero</strong>
               <p className="text-slate-600">Centro geográfico del Municipio.</p>
-              <span className="inline-block mt-2 px-2 py-0.5 rounded bg-sky-50 text-sky-700 font-medium text-[10px]">
+              <span className="inline-block mt-2 px-2 py-0.5 rounded bg-municipal-50 text-municipal-700 font-medium text-[10px]">
                 Lat: -34.6037, Lng: -58.5626
               </span>
             </div>

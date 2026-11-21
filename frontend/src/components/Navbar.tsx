@@ -12,16 +12,16 @@ export const Navbar: React.FC<NavbarProps> = ({ health, loading, error, onRefres
   const isConnected = !loading && !error && health?.status === 'ok' && health.db === 'connected';
 
   return (
-    <header className="h-16 bg-slate-900 border-b border-slate-800 text-white flex items-center justify-between px-6 z-20 shadow-md">
+    <header className="h-16 bg-municipal-800 border-b-2 border-marca-naranja text-white flex items-center justify-between px-6 z-20 shadow-md">
       <div className="flex items-center space-x-3">
-        <div className="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-bold text-white shadow-inner">
+        <div className="w-8 h-8 rounded-lg bg-municipal-500 flex items-center justify-center font-bold text-white shadow-inner">
           3F
         </div>
         <div>
           <h1 className="text-base font-semibold leading-tight tracking-tight">
             Plataforma Inmobiliaria 3F
           </h1>
-          <p className="text-xs text-slate-400 font-medium">
+          <p className="text-xs text-municipal-100 font-medium">
             Dirección de Inversiones • Municipalidad de Tres de Febrero
           </p>
         </div>
@@ -53,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({ health, loading, error, onRefres
           <button
             onClick={onRefresh}
             disabled={loading}
-            className="p-1.5 rounded-md hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-md hover:bg-municipal-700 text-municipal-100 hover:text-white transition-colors"
             title="Reintentar verificación de conexión"
             aria-label="Reintentar verificación de conexión"
           >
