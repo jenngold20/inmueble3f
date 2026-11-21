@@ -3,8 +3,10 @@ import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
 import { MapView } from './components/MapView';
 import { fetchHealthCheck, HealthResponse } from './services/health.service';
+import { useInmuebles } from './hooks/useInmuebles';
 
 export const App: React.FC = () => {
+  const { inmuebles, loading: cargandoInmuebles, error: errorInmuebles, reintentar } = useInmuebles();
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,8 +62,13 @@ export const App: React.FC = () => {
         onRefresh={checkStatus}
       />
       <main className="flex flex-1 overflow-hidden relative">
-        <Sidebar />
-        <MapView />
+        <Sidebar
+          inmuebles={inmuebles}
+          loading={cargandoInmuebles}
+          error={errorInmuebles}
+          onRetry={reintentar}
+        />
+        <MapView inmuebles={inmuebles} />
       </main>
     </div>
   );
