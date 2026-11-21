@@ -108,7 +108,7 @@ export const Sidebar: React.FC = () => {
       {/* Footer del Sidebar */}
       <div className="p-4 border-t border-slate-200 bg-slate-50 text-[11px] text-slate-500 flex items-center justify-between">
         <span>Capa Geoespacial: Turf.js</span>
-        <span className="font-semibold text-slate-600">Versión 0.1.0</span>
+        <span className="font-semibold text-slate-600">Desarrollado por Tecno3F · v0.1.0</span>
       </div>
     </aside>
   );
