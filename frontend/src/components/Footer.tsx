@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
   const anioActual = new Date().getFullYear();
 
   return (
-    <footer className="shrink-0 bg-slate-900 border-t border-slate-800 text-slate-300 px-4 md:px-6 py-2.5 z-20 text-xs shadow-lg">
+    <footer className="shrink-0 bg-municipal-900 border-t border-municipal-800 text-slate-300 px-4 md:px-6 py-2.5 z-20 text-xs shadow-lg">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5">
         {/* Identidad institucional izquierda */}
         <div className="flex items-center gap-2 text-center sm:text-left">
@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
         <div className="flex items-center gap-4 text-slate-400">
           <a
             href="mailto:inversiones@tresdefebrero.gob.ar"
-            className="inline-flex items-center gap-1.5 hover:text-sky-400 transition-colors"
+            className="inline-flex items-center gap-1.5 hover:text-marca-amarillo transition-colors"
             title="Contacto oficial para radicación de empresas e inversiones"
           >
             <svg
@@ -53,7 +53,7 @@ export const Footer: React.FC = () => {
             href="https://tresdefebrero.gob.ar"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 hover:text-sky-400 transition-colors"
+            className="inline-flex items-center gap-1 hover:text-marca-amarillo transition-colors"
             title="Portal oficial de la Municipalidad de Tres de Febrero"
           >
             <span>tresdefebrero.gob.ar</span>
@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
             className="inline-flex items-center gap-1.5 rounded-full bg-slate-800/90 px-2.5 py-0.5 text-slate-200 border border-slate-700/80 font-medium tracking-tight shadow-sm"
             title="Área de Modernización y Tecnologías de Tres de Febrero"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-marca-naranja animate-pulse"></span>
             Desarrollado por Tecno 3F
           </span>
         </div>
