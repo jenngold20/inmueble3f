@@ -1,4 +1,5 @@
 import { CorridaScraperModel } from '../models/CorridaScraper.model.js';
+import { env } from '../config/env.js';
 import type { FuenteDatos } from '../types/dominio.types.js';
 import type {
   ScraperFuenteStatus,
@@ -10,6 +11,18 @@ import type {
    SERVICIO DE SALUD Y AUDITORÍA DE SCRAPERS (CARD-MTR-16)
    ========================================================================== */
 
+export interface UmbralesSaludScraper {
+  timeoutColgadoHoras: number;
+  slaFrescoHoras: number;
+  slaCriticoHoras: number;
+}
+
+export const UMBRALES_DEFAULT: UmbralesSaludScraper = {
+  timeoutColgadoHoras: env.SCRAPER_TIMEOUT_COLGADO_HORAS,
+  slaFrescoHoras: env.SCRAPER_SLA_FRESCO_HORAS,
+  slaCriticoHoras: env.SCRAPER_SLA_CRITICO_HORAS,
+};
+
 const FUENTES_MONITOREADAS: Array<{ fuente: FuenteDatos; display: string }> = [
   { fuente: 'argenprop', display: 'Argenprop' },
   { fuente: 'zonaprop', display: 'Zonaprop' },
@@ -20,13 +33,14 @@ const FUENTES_MONITOREADAS: Array<{ fuente: FuenteDatos; display: string }> = [
 
 /**
  * Evalúa las reglas semafóricas para una corrida específica:
- * - VERDE: OK hace menos de 24 horas y sin fallos.
- * - AMARILLO: OK hace 24-48 horas, o OK con fallidos > 0, o EN_PROCESO reciente (< 2h).
- * - ROJO: FALLO, o más de 48 horas sin corridas, o proceso colgado (> 2h).
+ * - VERDE: OK hace menos de `slaFrescoHoras` (24h) y sin fallos.
+ * - AMARILLO: OK hace 24-48 horas, o OK con fallidos > 0, o EN_PROCESO reciente (< timeoutColgadoHoras).
+ * - ROJO: FALLO, o más de `slaCriticoHoras` (48h) sin corridas, o proceso colgado (> timeoutColgadoHoras).
  */
 export function evaluarSaludCorrida(
   corrida: CorridaScraperModel | null,
-  ahora: Date = new Date()
+  ahora: Date = new Date(),
+  umbrales: UmbralesSaludScraper = UMBRALES_DEFAULT
 ): {
   estadoSalud: SemaforoSalud;
   horasDesdeUltimaCorrida: number | null;
@@ -54,11 +68,11 @@ export function evaluarSaludCorrida(
 
   // 2. Corrida en curso / colgada
   if (corrida.estado === 'EN_PROCESO') {
-    if (horas > 2) {
+    if (horas > umbrales.timeoutColgadoHoras) {
       return {
         estadoSalud: 'ROJO',
         horasDesdeUltimaCorrida: horasRedondeadas,
-        detalleAlerta: `Proceso potencialmente colgado: en ejecución hace más de ${Math.round(horas)} hs`,
+        detalleAlerta: `Proceso potencialmente colgado: en ejecución hace más de ${Math.round(horas)} hs (umbral: ${umbrales.timeoutColgadoHoras} hs)`,
       };
     }
     return {
@@ -69,7 +83,7 @@ export function evaluarSaludCorrida(
   }
 
   // 3. Corrida OK
-  if (horas < 24) {
+  if (horas < umbrales.slaFrescoHoras) {
     if (corrida.fallidos > 0) {
       return {
         estadoSalud: 'AMARILLO',
@@ -84,18 +98,18 @@ export function evaluarSaludCorrida(
     };
   }
 
-  if (horas < 48) {
+  if (horas < umbrales.slaCriticoHoras) {
     return {
       estadoSalud: 'AMARILLO',
       horasDesdeUltimaCorrida: horasRedondeadas,
-      detalleAlerta: `Datos con más de 24 hs de antigüedad (${Math.round(horas)} hs transcurridas)`,
+      detalleAlerta: `Datos con más de ${umbrales.slaFrescoHoras} hs de antigüedad (${Math.round(horas)} hs transcurridas)`,
     };
   }
 
   return {
     estadoSalud: 'ROJO',
     horasDesdeUltimaCorrida: horasRedondeadas,
-    detalleAlerta: `Alerta de desactualización: pasaron ${Math.round(horas)} hs sin ingesta nueva`,
+    detalleAlerta: `Alerta de desactualización: pasaron ${Math.round(horas)} hs sin ingesta nueva (límite: ${umbrales.slaCriticoHoras} hs)`,
   };
 }
 

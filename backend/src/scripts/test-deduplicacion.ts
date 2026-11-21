@@ -7,26 +7,16 @@ import {
   DISTANCIA_GEODESICA_MAXIMA_METROS,
   TOLERANCIA_SUPERFICIE_MAXIMA,
 } from '../services/deduplicacion.service.js';
+import { TestRunner } from './test-helpers.js';
 
 console.log('🧪 ========================================================');
 console.log('   SUITE DE PRUEBAS DE DEDUPLICACIÓN ESPACIAL TURF.JS');
 console.log('   [CARD-ING-03A] - Plataforma Inmobiliaria Tres de Febrero');
 console.log('========================================================\n');
 
-let totalTests = 0;
-let passedTests = 0;
-
-function assert(condition: boolean, testName: string, details?: string) {
-  totalTests++;
-  if (condition) {
-    passedTests++;
-    console.log(`  ✅ [PASS] ${testName}`);
-    if (details) console.log(`     └─ ${details}`);
-  } else {
-    console.error(`  ❌ [FAIL] ${testName}`);
-    if (details) console.error(`     └─ ${details}`);
-  }
-}
+const runner = new TestRunner('Deduplicación Espacial');
+const assert = (condition: boolean, testName: string, details?: string) =>
+  runner.assert(condition, testName, details);
 
 // Coordenadas base de prueba: Centro de Caseros (Tres de Febrero)
 // Av. San Martín y Urquiza: lat: -34.6037, lng: -58.5626
@@ -267,12 +257,4 @@ assert(
 /* ==========================================================================
    RESUMEN FINAL DE LA SUITE
    ========================================================================== */
-console.log('\n========================================================');
-console.log(`🎉 RESUMEN DE EJECUCIÓN:`);
-console.log(`   - Tests ejecutados: ${totalTests}`);
-console.log(`   - Tests exitosos:   ${passedTests}/${totalTests}`);
-console.log('========================================================\n');
-
-if (passedTests !== totalTests) {
-  process.exit(1);
-}
+runner.imprimirResumen();

@@ -1,17 +1,16 @@
-import { evaluarSaludCorrida, calcularEstadoGlobal } from '../services/scrapers.service.js';
+import {
+  evaluarSaludCorrida,
+  calcularEstadoGlobal,
+  UMBRALES_DEFAULT,
+  type UmbralesSaludScraper,
+} from '../services/scrapers.service.js';
 import { ScrapersStatusResponseSchema } from '../schemas/scrapers.schema.js';
 import type { CorridaScraperModel } from '../models/CorridaScraper.model.js';
+import { assert } from './test-helpers.js';
 
 /* ==========================================================================
    SUITE DE PRUEBAS DE SALUD Y SEMÁFORO DE SCRAPERS (CARD-MTR-16)
    ========================================================================== */
-
-function assert(condition: boolean, message: string) {
-  if (!condition) {
-    throw new Error(`❌ Falló la aserción: ${message}`);
-  }
-  console.log(`✅ ${message}`);
-}
 
 function mockCorrida(data: Partial<CorridaScraperModel>): CorridaScraperModel {
   return data as unknown as CorridaScraperModel;
@@ -101,7 +100,46 @@ const corridaColgada = mockCorrida({
 const saludColgada = evaluarSaludCorrida(corridaColgada, ahora);
 assert(saludColgada.estadoSalud === 'ROJO', 'Corrida colgada en ejecución por más de 2h debe ser ROJO');
 
-// 7. Cálculo del estado global
+// 7. Umbrales configurables personalizados vs valores por defecto
+const umbralesCustom: UmbralesSaludScraper = {
+  timeoutColgadoHoras: 1,
+  slaFrescoHoras: 12,
+  slaCriticoHoras: 24,
+};
+
+// Corrida de hace 14 horas: con SLA fresco de 12h es AMARILLO, con default (24h) es VERDE
+const corridaCustom14h = mockCorrida({
+  fuente: 'argenprop',
+  fechaInicio: new Date('2026-11-21T04:00:00.000Z'), // 14 horas antes
+  estado: 'OK',
+  totalLeidos: 10,
+  nuevos: 0,
+  actualizados: 10,
+  fallidos: 0,
+});
+const saludCustom14h = evaluarSaludCorrida(corridaCustom14h, ahora, umbralesCustom);
+assert(saludCustom14h.estadoSalud === 'AMARILLO', 'Con SLA fresco de 12h, corrida de hace 14h pasa a AMARILLO');
+
+const saludDefault14h = evaluarSaludCorrida(corridaCustom14h, ahora, UMBRALES_DEFAULT);
+assert(saludDefault14h.estadoSalud === 'VERDE', 'Con SLA fresco por defecto (24h), corrida de 14h se mantiene VERDE');
+
+// Corrida en proceso de hace 1.5 horas: con timeout custom de 1h es ROJO (colgado), con default (2h) es AMARILLO
+const corridaCustomColgada = mockCorrida({
+  fuente: 'argenprop',
+  fechaInicio: new Date('2026-11-21T16:30:00.000Z'), // 1.5 horas antes
+  estado: 'EN_PROCESO',
+  totalLeidos: 0,
+  nuevos: 0,
+  actualizados: 0,
+  fallidos: 0,
+});
+const saludCustomColgada = evaluarSaludCorrida(corridaCustomColgada, ahora, umbralesCustom);
+assert(saludCustomColgada.estadoSalud === 'ROJO', 'Con timeout custom de 1h, proceso de 1.5h pasa a ROJO');
+
+const saludDefaultColgada = evaluarSaludCorrida(corridaCustomColgada, ahora, UMBRALES_DEFAULT);
+assert(saludDefaultColgada.estadoSalud === 'AMARILLO', 'Con timeout default (2h), proceso de 1.5h sigue en AMARILLO');
+
+// 8. Cálculo del estado global
 assert(calcularEstadoGlobal(['VERDE', 'VERDE']) === 'VERDE', 'Todas verdes -> Global VERDE');
 assert(calcularEstadoGlobal(['VERDE', 'AMARILLO']) === 'AMARILLO', 'Una amarilla -> Global AMARILLO');
 assert(calcularEstadoGlobal(['VERDE', 'AMARILLO', 'ROJO']) === 'ROJO', 'Una roja -> Global ROJO');
