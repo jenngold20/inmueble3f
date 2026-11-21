@@ -21,3 +21,4 @@ El flujo de una petición DEBE respetar este orden unidireccional:
 - **Sincronización con URL:** Todos los filtros del mapa (tipo, operación, m2, precio, localidad, rubro) DEBEN reflejarse en los `searchParams` de la URL para permitir compartir búsquedas por link.
 - **Separación UI / Datos:** Los componentes visuales no hacen `fetch` directo. Las llamadas a la API viven en `/src/services` o custom hooks tipados.
 - **Rendimiento en Mapa (Leaflet):** Las capas GeoJSON de zonificación se cargan una sola vez y se memorizan.
+- **Guías de Diseño y UX:** Consultar [FRONTEND_GUIDELINES.md](./FRONTEND_GUIDELINES.md) para estándares de modales, skeletons, alertas y accesibilidad, y [IDENTIDAD_VISUAL.md](./IDENTIDAD_VISUAL.md) para tokens de color y tipografía.
