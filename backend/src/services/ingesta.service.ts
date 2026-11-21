@@ -21,6 +21,7 @@ import type {
 import { esResultadoFallido } from '../types/ingesta.types.js';
 import { AppError } from '../types/errors.js';
 import { buscarInmuebleCoincidenteEnBD } from './deduplicacion.service.js';
+import { determinarZonaMunicipal } from './geo.service.js';
 import {
   finalizarCorrida,
   iniciarCorrida,
@@ -179,7 +180,9 @@ async function resolverInmuebleId(
     return deduplicacion.inmuebleCoincidente.id;
   }
 
-  // Georef (ING-02) y Turf/zonificación (GEO-06) completarán estos nulos.
+  // Cruce espacial inmediato con capas GeoJSON mediante Turf.js (GEO-06)
+  const cruce = determinarZonaMunicipal(aviso.lat, aviso.lng);
+
   const inmueble = await InmuebleModel.create(
     {
       direccion: aviso.direccion,
@@ -190,8 +193,8 @@ async function resolverInmuebleId(
       superficieTotalM2: aviso.superficieTotalM2 ?? null,
       superficieCubiertaM2: aviso.superficieCubiertaM2 ?? null,
       tipo: aviso.tipo,
-      zonaCodigo: null,
-      macrozona: null,
+      zonaCodigo: cruce.zona ?? null,
+      macrozona: cruce.macrozona ?? null,
     },
     { transaction }
   );
