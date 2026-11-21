@@ -31,6 +31,7 @@ Plataforma web de uso interno para la Dirección de Inversiones de la Municipali
    - Antes de tocar rutas, controladores o modelos: leé `/docs/ARCHITECTURE.md`.
    - Antes de tocar esquemas de datos, zonas o scrapers: leé `/docs/DOMINIO_Y_DATOS.md`.
    - Antes de hacer commits o ramas: respetá `/CONTRIBUTING.md`.
+   - Antes de tocar UI (componentes, estilos, paleta, tipografía o logo): leé `/docs/IDENTIDAD_VISUAL.md` y respetá el manual de marca en `/docs/pdfs/`.
 
 ## 6. Reglas de Integración con Trello
 - **Espacio de Trabajo Autorizado:** El único espacio de trabajo de Trello vinculado a este proyecto es **"Inmuebles 3F"** (`inmuebles3f`, workspace ID: `ari:cloud:trello::workspace/6af61825955ab4d2f2d74f3a`).
