@@ -78,6 +78,12 @@ function cargarFixture(): AvisoCrudoIngesta[] {
 const fixture = cargarFixture();
 const baseFixture = fixture.find((aviso) => aviso.tipo === 'galpon') ?? fixture[0];
 
+/**
+ * Coordenada propia de CARD-PERF-01, separada de la base de CARD-ING-01B
+ * para que los escenarios de bbox no interfieran con los existentes.
+ */
+const PERF_COORD = { lat: -34.5802, lng: -58.5401 };
+
 function crearAviso(
   sufijo: string,
   overrides: Partial<AvisoCrudoIngesta> = {}
@@ -100,6 +106,49 @@ function crearAviso(
     superficieCubiertaM2: 500,
     ...overrides,
   };
+}
+
+/** Aviso sintético de los escenarios PERF, siempre dentro de PERF_COORD. */
+function crearAvisoPerf(
+  sufijo: string,
+  overrides: Partial<AvisoCrudoIngesta> = {}
+): AvisoCrudoIngesta {
+  return crearAviso(`perf-${sufijo}`, {
+    localidad: 'Caseros',
+    lat: PERF_COORD.lat,
+    lng: PERF_COORD.lng,
+    superficieTotalM2: 600,
+    superficieCubiertaM2: 500,
+    ...overrides,
+  });
+}
+
+async function obtenerAviso(idExterno: string): Promise<AvisoModel> {
+  const aviso = await AvisoModel.findOne({ where: { idExterno } });
+
+  if (!aviso) {
+    throw new Error(`No se encontró el aviso ${idExterno}`);
+  }
+
+  return aviso;
+}
+
+/** Cuenta sólo los inmuebles creados por esta ejecución de la suite. */
+function contarInmueblesDeLaCorrida(): Promise<number> {
+  return InmuebleModel.count({ where: { createdAt: { [Op.gte]: TEST_START } } });
+}
+
+async function verificarMetricasPersistidas(resultado: ResultadoIngesta): Promise<void> {
+  const corrida = await CorridaScraperModel.findByPk(resultado.corridaId);
+
+  verificar(corrida !== null, 'La corrida persistida debe existir');
+  verificar(
+    corrida.totalLeidos === resultado.totalLeidos &&
+      corrida.nuevos === resultado.nuevos &&
+      corrida.actualizados === resultado.actualizados &&
+      corrida.fallidos === resultado.fallidos,
+    `Métricas persistidas distintas de las devueltas en ${resultado.corridaId}`
+  );
 }
 
 async function limpiarDatosDePrueba(): Promise<void> {
@@ -418,6 +467,147 @@ const escenarios: Array<{ nombre: string; ejecutar: () => Promise<void> }> = [
         corridaDetectada.nuevos === 2 && corridaDetectada.fallidos === 1,
         `Métricas parciales inesperadas: nuevos=${corridaDetectada.nuevos}, fallidos=${corridaDetectada.fallidos}`
       );
+    },
+  },
+  {
+    nombre: 'PERF-1: inmueble misma localidad a ~50 m reutiliza inmuebleId',
+    ejecutar: async () => {
+      const resultadoA = await ejecutarLote([crearAvisoPerf('1-a')]);
+
+      verificar(resultadoA.nuevos === 1, `Se esperaba 1 nuevo y llegaron ${resultadoA.nuevos}`);
+      verificar(resultadoA.fallidos === 0, 'El aviso base de PERF-1 no debía fallar');
+
+      const avisoA = await obtenerAviso(`${PREFIJO}perf-1-a`);
+      const inmueblesAntes = await contarInmueblesDeLaCorrida();
+
+      const resultadoB = await ejecutarLote([
+        crearAvisoPerf('1-b', { lat: PERF_COORD.lat + 0.00045 }), // ~50 m
+      ]);
+
+      verificar(resultadoB.nuevos === 1, `Se esperaba 1 nuevo y llegaron ${resultadoB.nuevos}`);
+      verificar(resultadoB.fallidos === 0, 'El aviso a 50 m no debía fallar');
+
+      const avisoB = await obtenerAviso(`${PREFIJO}perf-1-b`);
+      const inmueblesDespues = await contarInmueblesDeLaCorrida();
+
+      verificar(
+        avisoB.inmuebleId === avisoA.inmuebleId,
+        'El aviso a ~50 m debía reutilizar el Inmueble existente'
+      );
+      verificar(
+        inmueblesDespues === inmueblesAntes,
+        'No debía crearse un Inmueble nuevo para el aviso a ~50 m'
+      );
+    },
+  },
+  {
+    nombre: 'PERF-2: inmueble misma localidad a ~500 m queda fuera del bbox',
+    ejecutar: async () => {
+      const avisoBase = await obtenerAviso(`${PREFIJO}perf-1-a`);
+      const inmueblesAntes = await contarInmueblesDeLaCorrida();
+
+      const resultado = await ejecutarLote([
+        crearAvisoPerf('2', { lat: PERF_COORD.lat + 0.0045 }), // ~500 m
+      ]);
+
+      verificar(resultado.nuevos === 1, `Se esperaba 1 nuevo y llegaron ${resultado.nuevos}`);
+      verificar(resultado.fallidos === 0, 'El aviso a 500 m no debía fallar');
+
+      const aviso = await obtenerAviso(`${PREFIJO}perf-2`);
+      const inmueblesDespues = await contarInmueblesDeLaCorrida();
+
+      verificar(
+        aviso.inmuebleId !== avisoBase.inmuebleId,
+        'El aviso a ~500 m debía crear un Inmueble distinto'
+      );
+      verificar(
+        inmueblesDespues === inmueblesAntes + 1,
+        `Se esperaba 1 Inmueble nuevo y hubo ${inmueblesDespues - inmueblesAntes}`
+      );
+    },
+  },
+  {
+    nombre: 'PERF-3: coordenadas idénticas, Caseros vs Santos Lugares ⇒ alta nueva',
+    ejecutar: async () => {
+      const avisoCaseros = await obtenerAviso(`${PREFIJO}perf-1-a`);
+      const inmueblesAntes = await contarInmueblesDeLaCorrida();
+
+      const resultado = await ejecutarLote([
+        crearAvisoPerf('3', { localidad: 'Santos Lugares' }),
+      ]);
+
+      verificar(resultado.nuevos === 1, `Se esperaba 1 nuevo y llegaron ${resultado.nuevos}`);
+      verificar(resultado.fallidos === 0, 'El aviso con otra localidad no debía fallar');
+
+      const aviso = await obtenerAviso(`${PREFIJO}perf-3`);
+      const inmueblesDespues = await contarInmueblesDeLaCorrida();
+
+      verificar(
+        aviso.inmuebleId !== avisoCaseros.inmuebleId,
+        'El bbox trae el candidato, pero la regla JS de localidad debía descartarlo'
+      );
+      verificar(
+        inmueblesDespues === inmueblesAntes + 1,
+        `Se esperaba 1 Inmueble nuevo y hubo ${inmueblesDespues - inmueblesAntes}`
+      );
+    },
+  },
+  {
+    nombre: 'PERF-4: localidad "CASEROS" a ~30 m reutiliza por normalización JS',
+    ejecutar: async () => {
+      const avisoBase = await obtenerAviso(`${PREFIJO}perf-1-a`);
+      const inmueblesAntes = await contarInmueblesDeLaCorrida();
+
+      const resultado = await ejecutarLote([
+        crearAvisoPerf('4', {
+          localidad: 'CASEROS',
+          lat: PERF_COORD.lat + 0.00027, // ~30 m
+        }),
+      ]);
+
+      verificar(resultado.nuevos === 1, `Se esperaba 1 nuevo y llegaron ${resultado.nuevos}`);
+      verificar(resultado.fallidos === 0, 'El aviso con localidad en mayúsculas no debía fallar');
+
+      const aviso = await obtenerAviso(`${PREFIJO}perf-4`);
+      const inmueblesDespues = await contarInmueblesDeLaCorrida();
+
+      verificar(
+        aviso.inmuebleId === avisoBase.inmuebleId,
+        'La normalización JS debía hacer coincidir "CASEROS" con "Caseros"'
+      );
+      verificar(
+        inmueblesDespues === inmueblesAntes,
+        'No debía crearse un Inmueble nuevo para el aviso a ~30 m'
+      );
+    },
+  },
+  {
+    nombre: 'PERF-5: escenario original de CARD-ING-01B conserva sus métricas',
+    ejecutar: async () => {
+      const primera = await ejecutarLote([crearAvisoPerf('5-a'), crearAvisoPerf('5-b')]);
+
+      verificar(primera.nuevos === 2, `Se esperaban 2 nuevos y llegaron ${primera.nuevos}`);
+      verificar(primera.actualizados === 0, 'No debía haber actualizados en la primera corrida');
+      verificar(primera.fallidos === 0, 'No debía haber fallidos en la primera corrida');
+      await verificarMetricasPersistidas(primera);
+
+      const avisoA = await obtenerAviso(`${PREFIJO}perf-5-a`);
+      const avisoB = await obtenerAviso(`${PREFIJO}perf-5-b`);
+
+      verificar(
+        avisoA.inmuebleId === avisoB.inmuebleId,
+        'Los dos avisos del lote debían compartir el mismo Inmueble'
+      );
+
+      const segunda = await ejecutarLote([crearAvisoPerf('5-a'), crearAvisoPerf('5-b')]);
+
+      verificar(segunda.nuevos === 0, `Se esperaban 0 nuevos y llegaron ${segunda.nuevos}`);
+      verificar(
+        segunda.actualizados === 2,
+        `Se esperaban 2 actualizados y llegaron ${segunda.actualizados}`
+      );
+      verificar(segunda.fallidos === 0, 'No debía haber fallidos en la segunda corrida');
+      await verificarMetricasPersistidas(segunda);
     },
   },
   {
