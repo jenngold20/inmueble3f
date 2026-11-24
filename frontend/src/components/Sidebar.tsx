@@ -8,6 +8,8 @@ interface SidebarProps {
   loading: boolean;
   error: string | null;
   onRetry: () => void;
+  seleccionadoId: string | null;
+  onSeleccionar: (id: string) => void;
 }
 
 const CANTIDAD_SKELETONS = 4;
@@ -16,7 +18,14 @@ const SKELETON_IDS = Array.from({ length: CANTIDAD_SKELETONS }, (_, i) => `skele
 const BOTON_REINTENTAR =
   'mt-3 min-h-11 cursor-pointer rounded-md bg-rose-700 px-4 text-sm font-semibold text-white hover:bg-rose-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700 focus-visible:ring-offset-2';
 
-export const Sidebar: React.FC<SidebarProps> = ({ inmuebles, loading, error, onRetry }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  inmuebles,
+  loading,
+  error,
+  onRetry,
+  seleccionadoId,
+  onSeleccionar,
+}) => {
   const hayResultados = !loading && !error && inmuebles.length > 0;
   const sinResultados = !loading && !error && inmuebles.length === 0;
 
@@ -134,7 +143,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ inmuebles, loading, error, onR
             <ul className="space-y-3">
               {inmuebles.map((inmueble) => (
                 <li key={inmueble.id}>
-                  <InmuebleCard inmueble={inmueble} />
+                  <InmuebleCard
+                    inmueble={inmueble}
+                    seleccionado={inmueble.id === seleccionadoId}
+                    onSeleccionar={onSeleccionar}
+                  />
                 </li>
               ))}
             </ul>

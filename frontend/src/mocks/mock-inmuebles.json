@@ -23,7 +23,23 @@
         "contactoTelefono": "+54 11 5550-0100",
         "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "06030ec5-21fd-4405-9280-f1ebed5eef8b",
+            "url": "/mock/inmuebles/fa7069a3-fdbf-453d-ba89-8c12f591ace7-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "a0ec57a9-e72c-499f-84a6-05c22b305029",
+            "url": "/mock/inmuebles/fa7069a3-fdbf-453d-ba89-8c12f591ace7-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "ef513664-fa4e-4521-a0af-2bd10477fba2",
+            "url": "/mock/inmuebles/fa7069a3-fdbf-453d-ba89-8c12f591ace7-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -51,7 +67,23 @@
         "contactoTelefono": "+54 11 5550-0101",
         "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "db2c02ce-8275-40e9-8699-c2a474e6d5f2",
+            "url": "/mock/inmuebles/8f91628a-b72b-4e26-aa9c-e2bfdca22bb5-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "c31b09d7-1a31-496e-ad61-c02162d39673",
+            "url": "/mock/inmuebles/8f91628a-b72b-4e26-aa9c-e2bfdca22bb5-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "a1053f49-7d0e-41da-81c8-12bc2f58897c",
+            "url": "/mock/inmuebles/8f91628a-b72b-4e26-aa9c-e2bfdca22bb5-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -79,7 +111,23 @@
         "contactoTelefono": "+54 11 5550-0102",
         "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "34ef5622-df6b-4c9a-85d8-79d654a0bfde",
+            "url": "/mock/inmuebles/9f326634-5ff6-4c16-a4ab-859b2d135f43-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "0ff4938b-3b3d-44e6-bccb-6c3de8bf7e85",
+            "url": "/mock/inmuebles/9f326634-5ff6-4c16-a4ab-859b2d135f43-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "0ae2bf4b-3c7d-4a7c-b2f2-fbdb47432541",
+            "url": "/mock/inmuebles/9f326634-5ff6-4c16-a4ab-859b2d135f43-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -107,7 +155,23 @@
         "contactoTelefono": "+54 11 5550-0103",
         "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "78364301-3acb-4484-bb4b-66e1dd6b3e2f",
+            "url": "/mock/inmuebles/7028e9b3-c3bb-4e6e-bf36-1cccb073d39d-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "fda9cf81-5fae-4b46-b06e-8190b7e9d6d1",
+            "url": "/mock/inmuebles/7028e9b3-c3bb-4e6e-bf36-1cccb073d39d-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "50dceb4a-cdc8-4608-9b69-a8f890c6bfc0",
+            "url": "/mock/inmuebles/7028e9b3-c3bb-4e6e-bf36-1cccb073d39d-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -135,7 +199,23 @@
         "contactoTelefono": "+54 11 5550-0104",
         "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "913fe5fc-96e4-4a2b-946f-d02f13c1d4f1",
+            "url": "/mock/inmuebles/f7416aee-b5ea-48d5-89f2-81b3e80fd301-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "2056e12b-79a0-427f-8519-caf2130cb898",
+            "url": "/mock/inmuebles/f7416aee-b5ea-48d5-89f2-81b3e80fd301-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "c26d4e9a-2831-4433-b811-c63799154a05",
+            "url": "/mock/inmuebles/f7416aee-b5ea-48d5-89f2-81b3e80fd301-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -163,7 +243,23 @@
         "contactoTelefono": "+54 11 5550-0105",
         "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "3eb5400a-ee6f-4054-82d4-33c8a55a5468",
+            "url": "/mock/inmuebles/c325aff1-0533-472e-9836-7e007caf7957-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "536696fa-4ca8-4774-bb42-47e700abc6bd",
+            "url": "/mock/inmuebles/c325aff1-0533-472e-9836-7e007caf7957-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "8df367ae-8b37-4715-92ca-cee6c819e714",
+            "url": "/mock/inmuebles/c325aff1-0533-472e-9836-7e007caf7957-3.svg",
+            "orden": 2
+          }
+        ]
       },
       {
         "id": "ece63b5e-3f29-4f36-83fb-58defc991d6e",
@@ -205,7 +301,23 @@
         "contactoTelefono": "+54 11 5550-0107",
         "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "00703746-b77d-49d4-9956-f328fba038e6",
+            "url": "/mock/inmuebles/68a01b91-4d1b-4023-b87e-1e45903f0b43-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "6d2cf760-d5f4-4e82-9fae-49f0dfe76d10",
+            "url": "/mock/inmuebles/68a01b91-4d1b-4023-b87e-1e45903f0b43-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "32a44b6e-25dd-4f69-97bf-a293872020d9",
+            "url": "/mock/inmuebles/68a01b91-4d1b-4023-b87e-1e45903f0b43-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -233,7 +345,23 @@
         "contactoTelefono": "+54 11 5550-0108",
         "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "1cfbe2bb-773c-4e22-82bc-915f92d632ff",
+            "url": "/mock/inmuebles/feeaa203-1ed6-4c00-aa54-1710560605df-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "ca72b73c-812e-48eb-8fd5-bfbdccf59379",
+            "url": "/mock/inmuebles/feeaa203-1ed6-4c00-aa54-1710560605df-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "6c35b25d-12c3-4d58-b37d-9b72346d5364",
+            "url": "/mock/inmuebles/feeaa203-1ed6-4c00-aa54-1710560605df-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -261,7 +389,23 @@
         "contactoTelefono": "+54 11 5550-0109",
         "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "60133e29-2c8c-4bd9-bd90-6362de081b38",
+            "url": "/mock/inmuebles/9d0ca69e-9fac-4465-a26e-657a99ab28f2-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "036fd14a-445a-432a-a90e-8f969f5c036f",
+            "url": "/mock/inmuebles/9d0ca69e-9fac-4465-a26e-657a99ab28f2-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "425c09c5-d102-4ef7-ba82-0b465f937baf",
+            "url": "/mock/inmuebles/9d0ca69e-9fac-4465-a26e-657a99ab28f2-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -289,7 +433,23 @@
         "contactoTelefono": "+54 11 5550-0110",
         "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "0987621d-af4e-4c54-be07-f9430dec36cf",
+            "url": "/mock/inmuebles/5e9758f8-38e6-47db-843f-2150b5016f2a-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "16ababa1-06a8-4a14-abf3-036e5f4b2cf4",
+            "url": "/mock/inmuebles/5e9758f8-38e6-47db-843f-2150b5016f2a-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "bb192566-0bc1-455b-8614-ab68f3725736",
+            "url": "/mock/inmuebles/5e9758f8-38e6-47db-843f-2150b5016f2a-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -317,7 +477,23 @@
         "contactoTelefono": "+54 11 5550-0111",
         "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "2bc49409-7636-4931-aeee-4ab80fc8697e",
+            "url": "/mock/inmuebles/50c74ec5-f90e-451e-8112-50a3e5c22ce5-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "f42a6bec-f7fa-4e53-be8b-91dd0c3bec0b",
+            "url": "/mock/inmuebles/50c74ec5-f90e-451e-8112-50a3e5c22ce5-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "fc0d7b6d-ff1f-499f-8292-54ca35e8c6d1",
+            "url": "/mock/inmuebles/50c74ec5-f90e-451e-8112-50a3e5c22ce5-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -345,7 +521,23 @@
         "contactoTelefono": "+54 11 5550-0112",
         "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "747f04df-ab78-44a6-b555-356caf1e978f",
+            "url": "/mock/inmuebles/af50eceb-57d7-4e0e-9d9d-b3a1bba2025f-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "7182a470-4260-4140-8fb1-1813bdb0a89f",
+            "url": "/mock/inmuebles/af50eceb-57d7-4e0e-9d9d-b3a1bba2025f-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "1389a7d4-f62c-441e-8e3a-296c566759e9",
+            "url": "/mock/inmuebles/af50eceb-57d7-4e0e-9d9d-b3a1bba2025f-3.svg",
+            "orden": 2
+          }
+        ]
       },
       {
         "id": "40d87305-c85e-489d-8875-55a7aa150cd9",
@@ -387,7 +579,23 @@
         "contactoTelefono": "+54 11 5550-0114",
         "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "ff036663-bf29-48a5-a36d-08ef1c8b8992",
+            "url": "/mock/inmuebles/7cecbe30-4b0e-489a-9ee1-0476208d8e8f-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "8608b5e5-5cf3-465b-b240-0aafdceded9e",
+            "url": "/mock/inmuebles/7cecbe30-4b0e-489a-9ee1-0476208d8e8f-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "8e13b347-1da7-4c03-9566-3e91edf1b98e",
+            "url": "/mock/inmuebles/7cecbe30-4b0e-489a-9ee1-0476208d8e8f-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -415,7 +623,23 @@
         "contactoTelefono": "+54 11 5550-0115",
         "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "fba71bb5-d068-4da9-b4cf-937330804170",
+            "url": "/mock/inmuebles/180dd9f0-5882-4701-88d3-8cfd9dba7371-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "b717545f-e4cc-4f78-8c09-31209fdad5e1",
+            "url": "/mock/inmuebles/180dd9f0-5882-4701-88d3-8cfd9dba7371-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "be62b031-896d-4a94-9e89-3de829caa124",
+            "url": "/mock/inmuebles/180dd9f0-5882-4701-88d3-8cfd9dba7371-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -443,7 +667,23 @@
         "contactoTelefono": "+54 11 5550-0116",
         "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "540adbdc-3c00-4a06-afc5-d27332a84578",
+            "url": "/mock/inmuebles/df45a5b3-9dbb-4d65-b6d9-cb014e48933e-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "b85de170-f5bc-477e-8885-b2b0f2bc496f",
+            "url": "/mock/inmuebles/df45a5b3-9dbb-4d65-b6d9-cb014e48933e-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "983226e1-8a8e-4da1-a42a-7e93aa680511",
+            "url": "/mock/inmuebles/df45a5b3-9dbb-4d65-b6d9-cb014e48933e-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -471,7 +711,23 @@
         "contactoTelefono": "+54 11 5550-0117",
         "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "29f1055c-ac72-4c5d-973a-94a182b5dff4",
+            "url": "/mock/inmuebles/e2ea4085-75fe-42fd-8c14-4c6406dda333-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "156031bf-303d-426a-bbc6-5f81234b5e9b",
+            "url": "/mock/inmuebles/e2ea4085-75fe-42fd-8c14-4c6406dda333-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "f868abbc-698a-4ce7-ba23-19a67d398917",
+            "url": "/mock/inmuebles/e2ea4085-75fe-42fd-8c14-4c6406dda333-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -499,7 +755,23 @@
         "contactoTelefono": "+54 11 5550-0118",
         "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "0ab0a223-fb70-4308-bbd2-1ed04a1e72c0",
+            "url": "/mock/inmuebles/26488758-f615-4c68-82f0-0a737d4f0ea7-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "599f3e57-96d2-4fae-9831-e33d088bbb8e",
+            "url": "/mock/inmuebles/26488758-f615-4c68-82f0-0a737d4f0ea7-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "e46aac0a-47d8-4629-bbb8-be3b97d36cee",
+            "url": "/mock/inmuebles/26488758-f615-4c68-82f0-0a737d4f0ea7-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -527,7 +799,23 @@
         "contactoTelefono": "+54 11 5550-0119",
         "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "5a550add-0fb8-4366-a2a7-8bb9ff6a99c1",
+            "url": "/mock/inmuebles/a6670e9b-78a5-42b1-b1da-5e3dbe61d0dc-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "b838ab51-6f31-4b90-8921-4afdb5dc473a",
+            "url": "/mock/inmuebles/a6670e9b-78a5-42b1-b1da-5e3dbe61d0dc-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "c98d27ef-131b-401c-a387-8f7c8349e0ce",
+            "url": "/mock/inmuebles/a6670e9b-78a5-42b1-b1da-5e3dbe61d0dc-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -555,7 +843,23 @@
         "contactoTelefono": "+54 11 5550-0120",
         "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "8b435876-8708-4d14-a468-039b983bf50a",
+            "url": "/mock/inmuebles/eda71a21-da46-422c-81ea-51ae0c06d08f-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "924e0bea-8a2e-4329-a3ec-bff971e0ee17",
+            "url": "/mock/inmuebles/eda71a21-da46-422c-81ea-51ae0c06d08f-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "6428dc0f-0f29-4f90-84f1-740fb8163366",
+            "url": "/mock/inmuebles/eda71a21-da46-422c-81ea-51ae0c06d08f-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -583,7 +887,23 @@
         "contactoTelefono": "+54 11 5550-0121",
         "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "f7c45442-17df-404b-a279-0e64ebd6eea0",
+            "url": "/mock/inmuebles/8ec98843-7b68-4249-a254-6084f7432ef4-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "7fa4a505-0181-4dda-bbe5-e346af7647cc",
+            "url": "/mock/inmuebles/8ec98843-7b68-4249-a254-6084f7432ef4-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "bf6b8b0d-5fee-41c8-8591-aafd38c30324",
+            "url": "/mock/inmuebles/8ec98843-7b68-4249-a254-6084f7432ef4-3.svg",
+            "orden": 2
+          }
+        ]
       },
       {
         "id": "18f1d2af-b1c4-4b82-bf34-85e93099b33a",
@@ -625,7 +945,23 @@
         "contactoTelefono": "+54 11 5550-0123",
         "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "acdde68f-31cd-4be2-8362-e93e26d2b6cf",
+            "url": "/mock/inmuebles/782952af-c9b5-44a7-903b-d2ae5d830f9a-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "bda939b1-166e-429c-943e-5ef39874ce53",
+            "url": "/mock/inmuebles/782952af-c9b5-44a7-903b-d2ae5d830f9a-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "67547cd1-1a75-44f0-94a3-20b794f21f4c",
+            "url": "/mock/inmuebles/782952af-c9b5-44a7-903b-d2ae5d830f9a-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -653,7 +989,23 @@
         "contactoTelefono": "+54 11 5550-0124",
         "fechaVistoUltimaVez": "2026-11-16T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "94761883-7b83-46ce-8c5d-644fad734172",
+            "url": "/mock/inmuebles/1f2d0712-2ab6-45d8-b32f-18bdd113325c-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "88542fde-08ab-43be-8c9b-6553b6d64a4c",
+            "url": "/mock/inmuebles/1f2d0712-2ab6-45d8-b32f-18bdd113325c-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "8e88d873-afd7-4fc1-ae15-713305b50642",
+            "url": "/mock/inmuebles/1f2d0712-2ab6-45d8-b32f-18bdd113325c-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -681,7 +1033,23 @@
         "contactoTelefono": "+54 11 5550-0125",
         "fechaVistoUltimaVez": "2026-11-15T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "9ab9006b-cc42-42c7-8e8e-d6c6d30d977a",
+            "url": "/mock/inmuebles/d7ac606e-e690-4f43-8c8e-69002c270792-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "0c8f280e-200c-4bc2-a9dd-2b7d4924c304",
+            "url": "/mock/inmuebles/d7ac606e-e690-4f43-8c8e-69002c270792-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "35fcf44b-1d80-4114-8ea2-e1fe08bf279f",
+            "url": "/mock/inmuebles/d7ac606e-e690-4f43-8c8e-69002c270792-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -709,7 +1077,23 @@
         "contactoTelefono": "+54 11 5550-0126",
         "fechaVistoUltimaVez": "2026-11-14T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "a7e3a239-d898-4b9c-a38e-5bb135e8d118",
+            "url": "/mock/inmuebles/c0c9361c-8d92-40d6-9558-f81f084d2636-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "4fc64dc4-3b9a-4446-9f73-ea3f84f7c7a1",
+            "url": "/mock/inmuebles/c0c9361c-8d92-40d6-9558-f81f084d2636-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "cd9c81d6-8705-44a2-b408-687e1918569c",
+            "url": "/mock/inmuebles/c0c9361c-8d92-40d6-9558-f81f084d2636-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   },
@@ -737,7 +1121,23 @@
         "contactoTelefono": "+54 11 5550-0127",
         "fechaVistoUltimaVez": "2026-11-17T12:00:00.000Z",
         "estado": "activo",
-        "fotos": []
+        "fotos": [
+          {
+            "id": "303aa98b-d67d-44c0-bae9-410a4a9eaa56",
+            "url": "/mock/inmuebles/b1011e61-5469-484f-9be7-aeb8d7fa935b-1.svg",
+            "orden": 0
+          },
+          {
+            "id": "de9a980e-f6ee-4991-b762-f7626a5aaabb",
+            "url": "/mock/inmuebles/b1011e61-5469-484f-9be7-aeb8d7fa935b-2.svg",
+            "orden": 1
+          },
+          {
+            "id": "2207f36f-f7c5-4d9e-95ba-47edb7bb55d3",
+            "url": "/mock/inmuebles/b1011e61-5469-484f-9be7-aeb8d7fa935b-3.svg",
+            "orden": 2
+          }
+        ]
       }
     ]
   }

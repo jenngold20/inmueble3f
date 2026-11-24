@@ -10,3 +10,12 @@
   height: 100%;
   z-index: 10;
 }
+
+/* Foco por teclado en los pines del mapa (ver MapView.tsx) */
+.custom-leaflet-pin:focus-visible {
+  outline: none;
+}
+.custom-leaflet-pin:focus-visible .pin-inner {
+  outline: 3px solid #0284c7;
+  outline-offset: 3px;
+}

@@ -14,9 +14,11 @@ import { PinInmueble } from './PinInmueble';
 
 interface MapViewProps {
   inmuebles: Inmueble[];
+  seleccionadoId: string | null;
+  onSeleccionar: (id: string) => void;
 }
 
-export const MapView: React.FC<MapViewProps> = ({ inmuebles }) => {
+export const MapView: React.FC<MapViewProps> = ({ inmuebles, seleccionadoId, onSeleccionar }) => {
   return (
     <div className="relative w-full h-full flex-1 bg-slate-100">
       <MapContainer
@@ -34,7 +36,12 @@ export const MapView: React.FC<MapViewProps> = ({ inmuebles }) => {
           url={TILE_LAYER_URL}
         />
         {inmuebles.map((inmueble) => (
-          <PinInmueble key={inmueble.id} inmueble={inmueble} />
+          <PinInmueble
+            key={inmueble.id}
+            inmueble={inmueble}
+            seleccionado={inmueble.id === seleccionadoId}
+            onSeleccionar={onSeleccionar}
+          />
         ))}
       </MapContainer>
 

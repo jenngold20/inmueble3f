@@ -1,13 +1,22 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
 import { MapView } from './components/MapView';
 import { Footer } from './components/Footer';
+import { InmuebleDrawer } from './components/InmuebleDrawer';
 import { fetchHealthCheck, HealthResponse } from './services/health.service';
 import { useInmuebles } from './hooks/useInmuebles';
 
 export const App: React.FC = () => {
   const { inmuebles, loading: cargandoInmuebles, error: errorInmuebles, reintentar } = useInmuebles();
+  const [seleccionadoId, setSeleccionadoId] = useState<string | null>(null);
+  const seleccionado = useMemo(
+    () => inmuebles.find((inmueble) => inmueble.id === seleccionadoId) ?? null,
+    [inmuebles, seleccionadoId],
+  );
+  const seleccionar = useCallback((id: string) => setSeleccionadoId(id), []);
+  const cerrarFicha = useCallback(() => setSeleccionadoId(null), []);
+
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -68,8 +77,11 @@ export const App: React.FC = () => {
           loading={cargandoInmuebles}
           error={errorInmuebles}
           onRetry={reintentar}
+          seleccionadoId={seleccionadoId}
+          onSeleccionar={seleccionar}
         />
-        <MapView inmuebles={inmuebles} />
+        <MapView inmuebles={inmuebles} seleccionadoId={seleccionadoId} onSeleccionar={seleccionar} />
+        {seleccionado && <InmuebleDrawer key={seleccionado.id} inmueble={seleccionado} onCerrar={cerrarFicha} />}
       </main>
       <Footer />
     </div>
