@@ -15,7 +15,15 @@ const envSchema = z.object({
   POSTGRES_HOST: z.string().default('localhost'),
   POSTGRES_PORT: z.coerce.number().default(5432),
   INGESTA_MAX_AVISOS_LOTE: z.coerce.number().int().positive().max(5000).default(500),
-});
+  TELEGRAM_BOT_TOKEN: z.string().optional(),
+  BOT_TOKEN: z.string().optional(),
+  TELEGRAM_CHAT_ID: z.string().optional(),
+  CHAT_ID: z.string().optional(),
+}).transform((data) => ({
+  ...data,
+  TELEGRAM_BOT_TOKEN: data.TELEGRAM_BOT_TOKEN || data.BOT_TOKEN,
+  TELEGRAM_CHAT_ID: data.TELEGRAM_CHAT_ID || data.CHAT_ID,
+}));
 
 const parseEnv = () => {
   const parsed = envSchema.safeParse(process.env);

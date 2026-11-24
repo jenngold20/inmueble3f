@@ -11,6 +11,8 @@
     "dedup:test": "tsx src/scripts/test-deduplicacion.ts",
     "ingesta:test": "tsx src/scripts/test-ingesta.ts",
     "db:sync": "tsx src/scripts/sync-db.ts",
+    "telegram:chat-id": "tsx src/scripts/get-telegram-chat-id.ts",
+    "telegram:test": "tsx src/scripts/test-telegram.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
