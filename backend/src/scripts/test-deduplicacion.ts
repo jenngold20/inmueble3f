@@ -10,6 +10,7 @@ import {
   DISTANCIA_GEODESICA_MAXIMA_METROS,
   TOLERANCIA_SUPERFICIE_MAXIMA,
 } from '../services/deduplicacion.service.js';
+import { TestRunner } from './test-helpers.js';
 
 console.log('🧪 ========================================================');
 console.log('   SUITE DE PRUEBAS DE DEDUPLICACIÓN ESPACIAL TURF.JS');
@@ -17,20 +18,9 @@ console.log('   [CARD-ING-03A] + PRE-FILTRO BBOX [CARD-PERF-01]');
 console.log('   Plataforma Inmobiliaria Tres de Febrero');
 console.log('========================================================\n');
 
-let totalTests = 0;
-let passedTests = 0;
-
-function assert(condition: boolean, testName: string, details?: string) {
-  totalTests++;
-  if (condition) {
-    passedTests++;
-    console.log(`  ✅ [PASS] ${testName}`);
-    if (details) console.log(`     └─ ${details}`);
-  } else {
-    console.error(`  ❌ [FAIL] ${testName}`);
-    if (details) console.error(`     └─ ${details}`);
-  }
-}
+const runner = new TestRunner('Deduplicación Espacial');
+const assert = (condition: boolean, testName: string, details?: string) =>
+  runner.assert(condition, testName, details);
 
 const METROS_POR_GRADO_LATITUD_TEST = 111_320;
 const RADIANES_POR_GRADO = Math.PI / 180;
@@ -381,12 +371,4 @@ assert(
 /* ==========================================================================
    RESUMEN FINAL DE LA SUITE
    ========================================================================== */
-console.log('\n========================================================');
-console.log(`🎉 RESUMEN DE EJECUCIÓN:`);
-console.log(`   - Tests ejecutados: ${totalTests}`);
-console.log(`   - Tests exitosos:   ${passedTests}/${totalTests}`);
-console.log('========================================================\n');
-
-if (passedTests !== totalTests) {
-  process.exit(1);
-}
+runner.imprimirResumen();

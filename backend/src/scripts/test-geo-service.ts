@@ -5,6 +5,7 @@ import {
   geocodificarDireccion,
   normalizarUbicacionInmueble,
 } from '../services/geo.service.js';
+import { TestRunner } from './test-helpers.js';
 
 async function main() {
   console.log('🧪 ========================================================');
@@ -12,19 +13,8 @@ async function main() {
   console.log('   Plataforma Inmobiliaria Tres de Febrero');
   console.log('========================================================\n');
 
-  let testCount = 0;
-  let passCount = 0;
-
-  function assert(cond: boolean, mensaje: string) {
-    testCount++;
-    if (cond) {
-      passCount++;
-      console.log(`   ✅ [PASS] ${mensaje}`);
-    } else {
-      console.error(`   ❌ [FAIL] ${mensaje}`);
-      process.exitCode = 1;
-    }
-  }
+  const runner = new TestRunner('Servicio Geoespacial');
+  const assert = (cond: boolean, mensaje: string) => runner.assert(cond, mensaje);
 
   // --------------------------------------------------------------------------
   // TEST 1: Delimitación de Partido (estaEnTresDeFebrero)
@@ -127,13 +117,7 @@ async function main() {
   const promedioPorPuntoMs = (tFinBench - tInicioBench) / ITERACIONES;
   assert(promedioPorPuntoMs < 0.5, `Promedio por evaluación: ${promedioPorPuntoMs.toFixed(3)} ms (< 0.5 ms por punto)`);
 
-  console.log('\n========================================================');
-  console.log(`🎉 RESULTADOS: ${passCount}/${testCount} PRUEBAS EXITOSAS`);
-  console.log('========================================================');
-
-  if (passCount !== testCount) {
-    process.exit(1);
-  }
+  runner.imprimirResumen();
 }
 
 main().catch((err) => {

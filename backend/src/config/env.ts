@@ -15,6 +15,9 @@ const envSchema = z.object({
   POSTGRES_HOST: z.string().default('localhost'),
   POSTGRES_PORT: z.coerce.number().default(5432),
   INGESTA_MAX_AVISOS_LOTE: z.coerce.number().int().positive().max(5000).default(500),
+  SCRAPER_TIMEOUT_COLGADO_HORAS: z.coerce.number().positive().default(2),
+  SCRAPER_SLA_FRESCO_HORAS: z.coerce.number().positive().default(24),
+  SCRAPER_SLA_CRITICO_HORAS: z.coerce.number().positive().default(48),
 });
 
 const parseEnv = () => {

@@ -1,5 +1,7 @@
 import React from 'react';
 import { HealthResponse } from '../services/health.service';
+import { useScraperHealth } from '../hooks/useScraperHealth';
+import { ScraperHealthBadge } from './ScraperHealthBadge';
 
 interface NavbarProps {
   health: HealthResponse | null;
@@ -10,6 +12,17 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ health, loading, error, onRefresh }) => {
   const isConnected = !loading && !error && health?.status === 'ok' && health.db === 'connected';
+  const {
+    data: scraperData,
+    loading: loadingScraper,
+    error: errorScraper,
+    refetch: refetchScraper,
+  } = useScraperHealth();
+
+  const handleGlobalRefresh = () => {
+    onRefresh();
+    refetchScraper();
+  };
 
   return (
     <header className="h-16 bg-slate-900 border-b border-slate-800 text-white flex items-center justify-between px-6 z-20 shadow-md">
@@ -28,6 +41,14 @@ export const Navbar: React.FC<NavbarProps> = ({ health, loading, error, onRefres
       </div>
 
       <div className="flex items-center space-x-4">
+        {/* Semáforo de Salud de Scrapers (CARD-MTR-16) */}
+        <ScraperHealthBadge
+          statusData={scraperData}
+          loading={loadingScraper}
+          error={errorScraper}
+          onRefresh={refetchScraper}
+        />
+
         {/* Badge de Estado del Sistema */}
         <div className="flex items-center space-x-2 text-xs">
           {loading ? (
@@ -51,14 +72,14 @@ export const Navbar: React.FC<NavbarProps> = ({ health, loading, error, onRefres
           )}
 
           <button
-            onClick={onRefresh}
-            disabled={loading}
-            className="p-1.5 rounded-md hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
-            title="Reintentar verificación de conexión"
-            aria-label="Reintentar verificación de conexión"
+            onClick={handleGlobalRefresh}
+            disabled={loading || loadingScraper}
+            className="p-1.5 rounded-md hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            title="Reintentar verificación completa"
+            aria-label="Reintentar verificación completa"
           >
             <svg
-              className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`}
+              className={`w-4 h-4 ${loading || loadingScraper ? 'animate-spin' : ''}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

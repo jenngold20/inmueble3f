@@ -18,6 +18,7 @@ import type {
   IngestaLote,
   ResultadoIngesta,
 } from '../types/ingesta.types.js';
+import { verificar } from './test-helpers.js';
 
 /* ==========================================================================
    SUITE DE INTEGRACIÓN DE INGESTA (CARD-ING-01B)
@@ -39,12 +40,6 @@ let baseUrl = '';
 /* ==========================================================================
    HELPERS DE ASSERT, FIXTURE Y HTTP
    ========================================================================== */
-
-function verificar(condicion: boolean, mensaje: string): asserts condicion {
-  if (!condicion) {
-    throw new Error(mensaje);
-  }
-}
 
 function resolverFixture(): string {
   const candidatos = [
