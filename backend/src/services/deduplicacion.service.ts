@@ -1,5 +1,10 @@
 import distance from '@turf/distance';
-import type { Transaction } from 'sequelize';
+import {
+  Op,
+  type InferAttributes,
+  type Transaction,
+  type WhereOptions,
+} from 'sequelize';
 import type { TipoInmueble } from '../types/dominio.types.js';
 import { InmuebleModel } from '../models/Inmueble.model.js';
 
@@ -12,6 +17,19 @@ export const DISTANCIA_GEODESICA_MAXIMA_METROS = 80;
 
 /** Margen de tolerancia de superficie relativa (5% = 0.05) */
 export const TOLERANCIA_SUPERFICIE_MAXIMA = 0.05;
+
+/**
+ * Factor de seguridad del bounding box (CARD-PERF-01).
+ * Garantiza que la caja SQL contenga el círculo real de 80 m con holgura,
+ * aunque el umbral de distancia cambie en el futuro.
+ */
+export const FACTOR_SEGURIDAD_BBOX = 1.15;
+
+/** Metros por grado de latitud sobre la esfera media. */
+const METROS_POR_GRADO_LATITUD = 111_320;
+
+/** Cota inferior de cos(lat) para que el margen no explote cerca de los polos. */
+const COS_LATITUD_MINIMO = 0.01;
 
 /* ==========================================================================
    INTERFACES Y TIPOS DE ENTRADA / SALIDA
@@ -95,6 +113,63 @@ export function calcularDistanciaMetros(
 
   const dist = distance(fromCoord, toCoord, { units: 'meters' });
   return Math.round(dist * 100) / 100;
+}
+
+/* ==========================================================================
+   PRE-FILTRO ESPACIAL SQL (CARD-PERF-01)
+   ========================================================================== */
+
+/**
+ * El SQL es un pre-filtro superconjunto: sólo descarta lo que geométricamente
+ * no puede coincidir. Las 4 reglas de negocio siguen decidiéndose en JS
+ * (tipo, localidad normalizada, distancia geodésica y superficie), por lo que
+ * la precisión del algoritmo no cambia.
+ *
+ * Referencias: CARD-PERF-01 (bounding box) y CARD-PERF-02 (índice compuesto).
+ */
+
+export interface MargenBoundingBox {
+  latDelta: number;
+  lngDelta: number;
+}
+
+/**
+ * Deriva el margen del bbox en grados a partir del umbral geodésico y de un
+ * factor de seguridad. No se hardcodea ±0.001°: si el umbral cambia, la caja
+ * se recalcula y sigue conteniendo al círculo de distancia máxima.
+ */
+export function margenBoundingBoxGrados(lat: number): MargenBoundingBox {
+  const latDelta =
+    (DISTANCIA_GEODESICA_MAXIMA_METROS / METROS_POR_GRADO_LATITUD) *
+    FACTOR_SEGURIDAD_BBOX;
+
+  const cosLat = Math.max(Math.cos((lat * Math.PI) / 180), COS_LATITUD_MINIMO);
+
+  const lngDelta =
+    (DISTANCIA_GEODESICA_MAXIMA_METROS / (METROS_POR_GRADO_LATITUD * cosLat)) *
+    FACTOR_SEGURIDAD_BBOX;
+
+  return { latDelta, lngDelta };
+}
+
+/**
+ * Construye el `where` de candidatos: tipo + bounding box geográfico.
+ *
+ * Decisión D2 (CARD-PERF-01): la localidad NO se filtra en SQL. Cada portal
+ * escribe casing/tildes/abreviaturas propias y un `localidad = ?` exacto sería
+ * más estricto que la regla normalizada de JS, generando falsos negativos y
+ * duplicados. La localidad se sigue evaluando en `compararAvisoConInmueble()`.
+ */
+export function construirFiltroCandidatos(
+  aviso: AvisoParaDeduplicar
+): WhereOptions<InferAttributes<InmuebleModel>> {
+  const { latDelta, lngDelta } = margenBoundingBoxGrados(aviso.lat);
+
+  return {
+    tipo: aviso.tipo,
+    lat: { [Op.between]: [aviso.lat - latDelta, aviso.lat + latDelta] },
+    lng: { [Op.between]: [aviso.lng - lngDelta, aviso.lng + lngDelta] },
+  };
 }
 
 /**
@@ -320,8 +395,11 @@ export function evaluarCoincidenciaInmueble(
    ========================================================================== */
 
 /**
- * Consulta candidatos en PostgreSQL indexados por (localidad, tipo)
- * y evalúa la coincidencia con el aviso entrante en memoria.
+ * Consulta candidatos en PostgreSQL acotados por tipo + bounding box
+ * (CARD-PERF-01) y evalúa la coincidencia con el aviso entrante en memoria.
+ *
+ * Antes se traían todos los inmuebles del tipo en el partido por cada aviso
+ * (N+1). El bbox reduce las filas sin tocar las 4 reglas de negocio.
  *
  * `transaction` es opcional para que la ingesta pueda resolver el Inmueble
  * dentro de la misma transacción corta del aviso (CARD-ING-01B).
@@ -331,9 +409,17 @@ export async function buscarInmuebleCoincidenteEnBD(
   transaction?: Transaction
 ): Promise<ResultadoDeduplicacion> {
   const candidatosBD = await InmuebleModel.findAll({
-    where: {
-      tipo: aviso.tipo,
-    },
+    where: construirFiltroCandidatos(aviso),
+    attributes: [
+      'id',
+      'tipo',
+      'localidad',
+      'lat',
+      'lng',
+      'superficieTotalM2',
+      'superficieCubiertaM2',
+      'direccion',
+    ],
     transaction,
   });
 

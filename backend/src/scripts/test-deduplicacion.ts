@@ -1,7 +1,10 @@
+import { Op } from 'sequelize';
 import {
   evaluarCoincidenciaInmueble,
   compararAvisoConInmueble,
   calcularDistanciaMetros,
+  construirFiltroCandidatos,
+  margenBoundingBoxGrados,
   type AvisoParaDeduplicar,
   type InmuebleCandidato,
   DISTANCIA_GEODESICA_MAXIMA_METROS,
@@ -10,7 +13,8 @@ import {
 
 console.log('🧪 ========================================================');
 console.log('   SUITE DE PRUEBAS DE DEDUPLICACIÓN ESPACIAL TURF.JS');
-console.log('   [CARD-ING-03A] - Plataforma Inmobiliaria Tres de Febrero');
+console.log('   [CARD-ING-03A] + PRE-FILTRO BBOX [CARD-PERF-01]');
+console.log('   Plataforma Inmobiliaria Tres de Febrero');
 console.log('========================================================\n');
 
 let totalTests = 0;
@@ -26,6 +30,22 @@ function assert(condition: boolean, testName: string, details?: string) {
     console.error(`  ❌ [FAIL] ${testName}`);
     if (details) console.error(`     └─ ${details}`);
   }
+}
+
+const METROS_POR_GRADO_LATITUD_TEST = 111_320;
+const RADIANES_POR_GRADO = Math.PI / 180;
+
+function leerRango(valor: unknown): [number, number] | null {
+  if (!Array.isArray(valor) || valor.length !== 2) return null;
+
+  const [minimo, maximo] = valor;
+  return typeof minimo === 'number' && typeof maximo === 'number'
+    ? [minimo, maximo]
+    : null;
+}
+
+function esRangoSimetrico(rango: [number, number], centro: number): boolean {
+  return Math.abs(centro - rango[0] - (rango[1] - centro)) < 1e-12;
 }
 
 // Coordenadas base de prueba: Centro de Caseros (Tres de Febrero)
@@ -262,6 +282,100 @@ assert(
   tiempoTotalMs < 25,
   `Caso 10: 1.000 comparaciones espaciales en ${tiempoTotalMs} ms (${tiempoPromedioPorItemMs} ms/evaluación)`,
   `Candidatos evaluados: ${resBench.candidatosEvaluados}`
+);
+
+/* ==========================================================================
+   CARD-PERF-01: PRE-FILTRO SQL POR BOUNDING BOX
+   ========================================================================== */
+
+console.log('\n--- TEST 11: Margen del BBox derivado del umbral (Caseros) ---');
+const margenCaseros = margenBoundingBoxGrados(COORD_BASE.lat);
+const ladoLatMetros = margenCaseros.latDelta * METROS_POR_GRADO_LATITUD_TEST;
+const ladoLngMetros =
+  margenCaseros.lngDelta *
+  METROS_POR_GRADO_LATITUD_TEST *
+  Math.cos(COORD_BASE.lat * RADIANES_POR_GRADO);
+
+assert(
+  ladoLatMetros >= DISTANCIA_GEODESICA_MAXIMA_METROS &&
+    ladoLatMetros <= 150 &&
+    ladoLngMetros >= DISTANCIA_GEODESICA_MAXIMA_METROS &&
+    ladoLngMetros <= 150,
+  'Caso 11: El lado del bbox cae entre 80 m y 150 m en ambos ejes',
+  `lat: ${ladoLatMetros.toFixed(2)} m | lng: ${ladoLngMetros.toFixed(2)} m`
+);
+
+console.log('\n--- TEST 12: Invariante de radio (8 puntos a 79 m) ---');
+let puntosDentroDelBbox = 0;
+
+for (let indice = 0; indice < 8; indice++) {
+  const rumbo = (indice * Math.PI) / 4;
+  const deltaLat = (79 * Math.cos(rumbo)) / METROS_POR_GRADO_LATITUD_TEST;
+  const deltaLng =
+    (79 * Math.sin(rumbo)) /
+    (METROS_POR_GRADO_LATITUD_TEST * Math.cos(COORD_BASE.lat * RADIANES_POR_GRADO));
+
+  if (
+    Math.abs(deltaLat) <= margenCaseros.latDelta &&
+    Math.abs(deltaLng) <= margenCaseros.lngDelta
+  ) {
+    puntosDentroDelBbox++;
+  }
+}
+
+assert(
+  puntosDentroDelBbox === 8,
+  'Caso 12: Los 8 puntos a 79 m caen dentro del bbox',
+  `Puntos contenidos: ${puntosDentroDelBbox}/8`
+);
+
+console.log('\n--- TEST 13: Contrato del filtro (tipo + límites simétricos) ---');
+const filtroCandidatos = construirFiltroCandidatos(aviso1) as unknown as {
+  tipo?: unknown;
+  lat?: Record<symbol, unknown>;
+  lng?: Record<symbol, unknown>;
+};
+const rangoLat = leerRango(filtroCandidatos.lat?.[Op.between]);
+const rangoLng = leerRango(filtroCandidatos.lng?.[Op.between]);
+
+assert(
+  filtroCandidatos.tipo === aviso1.tipo &&
+    rangoLat !== null &&
+    rangoLng !== null &&
+    esRangoSimetrico(rangoLat, aviso1.lat) &&
+    esRangoSimetrico(rangoLng, aviso1.lng),
+  'Caso 13: El where filtra por tipo y por límites simétricos de lat/lng',
+  `tipo=${String(filtroCandidatos.tipo)} | lat=[${rangoLat?.join(', ') ?? 'n/a'}] | ` +
+    `lng=[${rangoLng?.join(', ') ?? 'n/a'}]`
+);
+
+console.log('\n--- TEST 14: Contrato D2: la localidad no se filtra en SQL ---');
+assert(
+  !Object.prototype.hasOwnProperty.call(filtroCandidatos, 'localidad'),
+  'Caso 14: El where no contiene localidad (decisión D2 de CARD-PERF-01)',
+  'Reintroducirla exige pasar por CARD-PERF-02'
+);
+
+console.log('\n--- TEST 15: Guard de latitud alta (cos acotado) ---');
+const margenPoloSur = margenBoundingBoxGrados(-89.999);
+const margenPoloNorte = margenBoundingBoxGrados(90);
+
+function margenPolarEsSano(margen: { latDelta: number; lngDelta: number }): boolean {
+  return (
+    Number.isFinite(margen.latDelta) &&
+    Number.isFinite(margen.lngDelta) &&
+    margen.latDelta > 0 &&
+    margen.lngDelta > 0 &&
+    margen.lngDelta <= 0.1 &&
+    margen.lngDelta >= margen.latDelta
+  );
+}
+
+assert(
+  margenPolarEsSano(margenPoloSur) && margenPolarEsSano(margenPoloNorte),
+  'Caso 15: El margen sigue siendo finito y acotado cerca de los polos',
+  `sur: latDelta=${margenPoloSur.latDelta.toFixed(6)}, lngDelta=${margenPoloSur.lngDelta.toFixed(6)} | ` +
+    `norte: latDelta=${margenPoloNorte.latDelta.toFixed(6)}, lngDelta=${margenPoloNorte.lngDelta.toFixed(6)}`
 );
 
 /* ==========================================================================
