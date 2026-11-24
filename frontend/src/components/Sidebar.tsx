@@ -141,12 +141,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ inmuebles, loading, error, onR
           )}
         </div>
       </section>
-
-      {/* Footer del Sidebar */}
-      <div className="flex shrink-0 items-center justify-between border-t border-slate-200 bg-slate-50 p-4 text-xs text-slate-600">
-        <span>Capa Geoespacial: Turf.js</span>
-        <span className="font-semibold text-slate-700">Versión 0.1.0</span>
-      </div>
     </aside>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
 import { MapView } from './components/MapView';
+import { Footer } from './components/Footer';
 import { fetchHealthCheck, HealthResponse } from './services/health.service';
 import { useInmuebles } from './hooks/useInmuebles';
 
@@ -70,6 +71,7 @@ export const App: React.FC = () => {
         />
         <MapView inmuebles={inmuebles} />
       </main>
+      <Footer />
     </div>
   );
 };
