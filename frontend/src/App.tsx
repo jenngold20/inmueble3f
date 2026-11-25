@@ -6,14 +6,43 @@ import { Footer } from './components/Footer';
 import { InmuebleDrawer } from './components/InmuebleDrawer';
 import { fetchHealthCheck, HealthResponse } from './services/health.service';
 import { useInmuebles } from './hooks/useInmuebles';
+import { useInmueblesFiltrados } from './hooks/useInmueblesFiltrados';
+import { FILTROS_INICIALES, type FiltrosInmuebles } from './schemas/filtros.schema';
 
 export const App: React.FC = () => {
   const { inmuebles, loading: cargandoInmuebles, error: errorInmuebles, reintentar } = useInmuebles();
+  const [filtros, setFiltros] = useState<FiltrosInmuebles>(FILTROS_INICIALES);
+  const [resetVersion, setResetVersion] = useState<number>(0);
+  const {
+    inmueblesFiltrados,
+    localidadesDisponibles,
+    cantidadFiltrosActivos,
+    hayFiltrosActivos,
+    erroresRango,
+  } = useInmueblesFiltrados(inmuebles, filtros);
+
+  const actualizarFiltros = useCallback((parcial: Partial<FiltrosInmuebles>) => {
+    setFiltros((prev) => ({ ...prev, ...parcial }));
+  }, []);
+
+  const limpiarFiltros = useCallback(() => {
+    setFiltros(FILTROS_INICIALES);
+    setResetVersion((v) => v + 1);
+  }, []);
+
   const [seleccionadoId, setSeleccionadoId] = useState<string | null>(null);
   const seleccionado = useMemo(
-    () => inmuebles.find((inmueble) => inmueble.id === seleccionadoId) ?? null,
-    [inmuebles, seleccionadoId],
+    () => inmueblesFiltrados.find((inmueble) => inmueble.id === seleccionadoId) ?? null,
+    [inmueblesFiltrados, seleccionadoId],
   );
+
+  // Si un filtro oculta el inmueble abierto, limpiamos la selección para no reabrirlo luego al limpiar filtros.
+  useEffect(() => {
+    if (!cargandoInmuebles && seleccionadoId !== null && seleccionado === null) {
+      setSeleccionadoId(null);
+    }
+  }, [cargandoInmuebles, seleccionadoId, seleccionado]);
+
   const seleccionar = useCallback((id: string) => setSeleccionadoId(id), []);
   const cerrarFicha = useCallback(() => setSeleccionadoId(null), []);
 
@@ -73,14 +102,23 @@ export const App: React.FC = () => {
       />
       <main className="flex flex-1 overflow-hidden relative">
         <Sidebar
-          inmuebles={inmuebles}
+          inmuebles={inmueblesFiltrados}
+          totalInmuebles={inmuebles.length}
           loading={cargandoInmuebles}
           error={errorInmuebles}
           onRetry={reintentar}
           seleccionadoId={seleccionadoId}
           onSeleccionar={seleccionar}
+          filtros={filtros}
+          resetVersion={resetVersion}
+          localidadesDisponibles={localidadesDisponibles}
+          cantidadFiltrosActivos={cantidadFiltrosActivos}
+          hayFiltrosActivos={hayFiltrosActivos}
+          erroresRango={erroresRango}
+          onActualizarFiltros={actualizarFiltros}
+          onLimpiarFiltros={limpiarFiltros}
         />
-        <MapView inmuebles={inmuebles} seleccionadoId={seleccionadoId} onSeleccionar={seleccionar} />
+        <MapView inmuebles={inmueblesFiltrados} seleccionadoId={seleccionadoId} onSeleccionar={seleccionar} />
         {seleccionado && <InmuebleDrawer key={seleccionado.id} inmueble={seleccionado} onCerrar={cerrarFicha} />}
       </main>
       <Footer />
