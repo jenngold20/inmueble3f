@@ -24,7 +24,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ inmuebles, loading, error, onR
     <aside className="z-10 flex h-full w-80 flex-shrink-0 flex-col border-r border-slate-200 bg-white shadow-sm md:w-96">
       {/* Filtros (colapsados por defecto: hoy están deshabilitados y el listado es la prioridad) */}
       <details className="group shrink-0 border-b border-slate-200 bg-slate-50">
-        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-4 py-2 text-sm font-bold uppercase tracking-wider text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-municipal-500 [&::-webkit-details-marker]:hidden">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-4 py-2 font-display text-sm font-black uppercase tracking-wider text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-municipal-500 [&::-webkit-details-marker]:hidden">
           <span className="flex items-center">
             <svg
               className="mr-2 h-4 w-4 text-municipal-600"
