@@ -7,6 +7,7 @@
   "scripts": {
     "scrape:test": "tsx src/index.ts",
     "scrape:json": "tsx src/scripts/export-avisos-json.ts",
+    "test": "npm run scrape:test",
     "build": "tsc"
   },
   "dependencies": {
