@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { OPERACION_LABEL, TIPO_LABEL } from '../constants/inmuebles';
+import { Select } from './Select';
 import {
   parsearNumeroFiltro,
   type ErroresRangoFiltros,
@@ -276,27 +277,23 @@ export const FiltersPanel: React.FC<FiltersPanelProps> = ({
 
       {/* Localidad */}
       <div>
-        <label
-          htmlFor="filtro-localidad"
-          className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-700"
-        >
+        <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-700">
           Localidad
-        </label>
-        <select
+        </span>
+        <Select<string | null>
           id="filtro-localidad"
-          value={filtros.localidad ?? ''}
-          onChange={(e) =>
-            onActualizarFiltros({ localidad: e.target.value === '' ? null : e.target.value })
+          value={filtros.localidad}
+          onChange={(nuevaLocalidad) =>
+            onActualizarFiltros({ localidad: nuevaLocalidad })
           }
-          className="min-h-11 w-full cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-municipal-500"
-        >
-          <option value="">Todas las localidades</option>
-          {localidadesDisponibles.map((loc) => (
-            <option key={loc} value={loc}>
-              {loc}
-            </option>
-          ))}
-        </select>
+          options={[
+            { value: null, label: 'Todas las localidades' },
+            ...localidadesDisponibles.map((loc) => ({ value: loc, label: loc })),
+          ]}
+          searchable
+          searchPlaceholder="Buscar localidad..."
+          placeholder="Todas las localidades"
+        />
       </div>
 
       {/* Superficie */}

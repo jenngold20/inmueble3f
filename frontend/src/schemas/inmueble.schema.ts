@@ -98,3 +98,4 @@ export const InmuebleSchema = z.object({
 export type Inmueble = z.infer<typeof InmuebleSchema>;
 
 export const InmueblesSchema = z.array(InmuebleSchema);
+export const InmuebleArraySchema = InmueblesSchema;

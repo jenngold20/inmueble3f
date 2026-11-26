@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:filtros": "npx tsx src/scripts/test-filtros.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
