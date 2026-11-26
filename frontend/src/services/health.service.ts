@@ -6,12 +6,13 @@ export interface HealthResponse {
 }
 
 export const fetchHealthCheck = async (signal?: AbortSignal): Promise<HealthResponse> => {
+  const abortSignal = signal instanceof AbortSignal ? signal : undefined;
   const response = await fetch('/api/health', {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
     },
-    signal,
+    signal: abortSignal,
   });
 
   if (!response.ok) {

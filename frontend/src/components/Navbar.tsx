@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ health, loading, error, onRefres
           statusData={scraperData}
           loading={loadingScraper}
           error={errorScraper}
-          onRefresh={refetchScraper}
+          onRefresh={() => refetchScraper()}
         />
 
         {/* Badge de Estado del Sistema */}

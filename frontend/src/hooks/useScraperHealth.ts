@@ -7,17 +7,24 @@ export function useScraperHealth() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const refetch = useCallback(async (signal?: AbortSignal) => {
+  const refetch = useCallback(async (signal?: AbortSignal | unknown) => {
+    const validSignal = signal instanceof AbortSignal ? signal : undefined;
     setLoading(true);
     setError(null);
     try {
-      const response = await fetchScrapersStatus(signal);
+      const response = await fetchScrapersStatus(validSignal);
       setData(response);
     } catch (err) {
       if (err instanceof Error && err.name === 'AbortError') {
         return;
       }
-      setError(err instanceof Error ? err.message : 'Error desconocido al verificar scrapers');
+      setError(
+        err instanceof Error
+          ? err.message.includes('Failed to execute')
+            ? 'Error al consultar el servicio de salud'
+            : err.message
+          : 'No se pudo conectar con el servicio de monitoreo'
+      );
     } finally {
       setLoading(false);
     }

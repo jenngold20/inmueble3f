@@ -6,12 +6,13 @@ import {
 export const fetchScrapersStatus = async (
   signal?: AbortSignal
 ): Promise<ScrapersStatusResponse> => {
+  const abortSignal = signal instanceof AbortSignal ? signal : undefined;
   const response = await fetch('/api/scrapers/status', {
     method: 'GET',
     headers: {
       Accept: 'application/json',
     },
-    signal,
+    signal: abortSignal,
   });
 
   if (!response.ok) {

@@ -112,7 +112,7 @@ export const ScraperHealthBadge: React.FC<ScraperHealthBadgeProps> = ({
             </h3>
             <button
               type="button"
-              onClick={onRefresh}
+              onClick={() => onRefresh()}
               className="text-xs text-municipal-600 hover:text-municipal-800 font-medium flex items-center gap-1 cursor-pointer"
             >
               <svg className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
