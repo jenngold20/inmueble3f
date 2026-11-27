@@ -55,9 +55,13 @@ export type EstadoAviso = z.infer<typeof EstadoAvisoEnum>;
    ENTIDADES (forma JSON de la API: las fechas viajan como string ISO 8601)
    ========================================================================== */
 
+/**
+ * Foto del aviso. Acepta URL absoluta (CDN de un portal) o ruta absoluta del sitio
+ * (fotos de prueba en /public/mock/...). z.string().url() solo acepta lo primero.
+ */
 export const FotoSchema = z.object({
   id: z.string().uuid(),
-  url: z.string().url(),
+  url: z.union([z.string().url(), z.string().regex(/^\/[^/\\].*/, 'Ruta de foto inválida')]),
   orden: z.number().int().nonnegative(),
 });
 export type Foto = z.infer<typeof FotoSchema>;

@@ -59,7 +59,7 @@ export const FiltersPanel: React.FC = () => {
             placeholder="Mínimo"
             className="w-full cursor-not-allowed rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-500"
           />
-          <span className="text-xs text-slate-400" aria-hidden="true">
+          <span className="text-xs text-slate-500" aria-hidden="true">
             -
           </span>
           <input
@@ -84,7 +84,7 @@ export const FiltersPanel: React.FC = () => {
           </div>
           <div className="flex items-center justify-between rounded border border-slate-100 bg-slate-50/70 p-2 text-slate-600">
             <span className="font-medium text-slate-700">RC (Camino Buen Ayre)</span>
-            <span className="rounded bg-sky-100 px-1.5 py-0.5 text-xs font-semibold text-sky-900">Logístico</span>
+            <span className="rounded bg-municipal-100 px-1.5 py-0.5 text-xs font-semibold text-municipal-800">Logístico</span>
           </div>
           <div className="flex items-center justify-between rounded border border-slate-100 bg-slate-50/70 p-2 text-slate-600">
             <span className="font-medium text-slate-700">C1 / C2 / C3 (Comercial)</span>

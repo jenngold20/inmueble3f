@@ -8,6 +8,8 @@ interface SidebarProps {
   loading: boolean;
   error: string | null;
   onRetry: () => void;
+  seleccionadoId: string | null;
+  onSeleccionar: (id: string) => void;
 }
 
 const CANTIDAD_SKELETONS = 4;
@@ -16,7 +18,14 @@ const SKELETON_IDS = Array.from({ length: CANTIDAD_SKELETONS }, (_, i) => `skele
 const BOTON_REINTENTAR =
   'mt-3 min-h-11 cursor-pointer rounded-md bg-rose-700 px-4 text-sm font-semibold text-white hover:bg-rose-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700 focus-visible:ring-offset-2';
 
-export const Sidebar: React.FC<SidebarProps> = ({ inmuebles, loading, error, onRetry }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  inmuebles,
+  loading,
+  error,
+  onRetry,
+  seleccionadoId,
+  onSeleccionar,
+}) => {
   const hayResultados = !loading && !error && inmuebles.length > 0;
   const sinResultados = !loading && !error && inmuebles.length === 0;
 
@@ -24,7 +33,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ inmuebles, loading, error, onR
     <aside className="z-10 flex h-full w-80 flex-shrink-0 flex-col border-r border-slate-200 bg-white shadow-sm md:w-96">
       {/* Filtros (colapsados por defecto: hoy están deshabilitados y el listado es la prioridad) */}
       <details className="group shrink-0 border-b border-slate-200 bg-slate-50">
-        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-4 py-2 text-sm font-bold uppercase tracking-wider text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-municipal-500 [&::-webkit-details-marker]:hidden">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-4 py-2 font-display text-sm font-black uppercase tracking-wider text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-municipal-500 [&::-webkit-details-marker]:hidden">
           <span className="flex items-center">
             <svg
               className="mr-2 h-4 w-4 text-municipal-600"
@@ -134,19 +143,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ inmuebles, loading, error, onR
             <ul className="space-y-3">
               {inmuebles.map((inmueble) => (
                 <li key={inmueble.id}>
-                  <InmuebleCard inmueble={inmueble} />
+                  <InmuebleCard
+                    inmueble={inmueble}
+                    seleccionado={inmueble.id === seleccionadoId}
+                    onSeleccionar={onSeleccionar}
+                  />
                 </li>
               ))}
             </ul>
           )}
         </div>
       </section>
-
-      {/* Footer del Sidebar */}
-      <div className="flex shrink-0 items-center justify-between border-t border-slate-200 bg-slate-50 p-4 text-xs text-slate-600">
-        <span>Capa Geoespacial: Turf.js</span>
-        <span className="font-semibold text-slate-700">Versión 0.1.0</span>
-      </div>
     </aside>
   );
 };
