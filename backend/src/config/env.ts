@@ -19,15 +19,14 @@ const envSchema = z.object({
   BOT_TOKEN: z.string().optional(),
   TELEGRAM_CHAT_ID: z.string().optional(),
   CHAT_ID: z.string().optional(),
+  SCRAPER_TIMEOUT_COLGADO_HORAS: z.coerce.number().positive().default(2),
+  SCRAPER_SLA_FRESCO_HORAS: z.coerce.number().positive().default(24),
+  SCRAPER_SLA_CRITICO_HORAS: z.coerce.number().positive().default(48),
 }).transform((data) => ({
   ...data,
   TELEGRAM_BOT_TOKEN: data.TELEGRAM_BOT_TOKEN || data.BOT_TOKEN,
   TELEGRAM_CHAT_ID: data.TELEGRAM_CHAT_ID || data.CHAT_ID,
 }));
-  SCRAPER_TIMEOUT_COLGADO_HORAS: z.coerce.number().positive().default(2),
-  SCRAPER_SLA_FRESCO_HORAS: z.coerce.number().positive().default(24),
-  SCRAPER_SLA_CRITICO_HORAS: z.coerce.number().positive().default(48),
-});
 
 const parseEnv = () => {
   const parsed = envSchema.safeParse(process.env);
