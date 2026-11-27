@@ -1,8 +1,9 @@
 import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
 import { AppError } from '../types/errors.js';
+import { notificarErrorCritico } from '../services/telegram.service.js';
 
-export const errorHandler: ErrorRequestHandler = (err: unknown, _req, res, _next) => {
+export const errorHandler: ErrorRequestHandler = (err: unknown, req, res, _next) => {
   if (err instanceof ZodError) {
     res.status(400).json({
       success: false,
@@ -30,6 +31,15 @@ export const errorHandler: ErrorRequestHandler = (err: unknown, _req, res, _next
   // Error genérico no controlado (500)
   const message = err instanceof Error ? err.message : 'Error interno del servidor';
   console.error('[Unhandled Error]:', err);
+
+  // Notificar por Telegram de forma asíncrona
+  void notificarErrorCritico({
+    ruta: req.originalUrl || req.url,
+    metodo: req.method,
+    error: err,
+    statusCode: 500,
+    ip: req.ip,
+  });
 
   res.status(500).json({
     success: false,
