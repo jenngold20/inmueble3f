@@ -1,6 +1,7 @@
 import { CorridaScraperModel } from '../models/CorridaScraper.model.js';
 import { AppError } from '../types/errors.js';
 import type { CorridaScraper, FuenteDatos } from '../types/dominio.types.js';
+import { notificarCorridaScraper } from './telegram.service.js';
 
 /* ==========================================================================
    TRAZABILIDAD DE CORRIDAS (CARD-ING-01B)
@@ -57,6 +58,28 @@ export async function finalizarCorrida(
       { corridaId }
     );
   }
+
+  // Notificar por Telegram de forma asíncrona y defensiva
+  CorridaScraperModel.findByPk(corridaId)
+    .then((corrida) => {
+      if (corrida) {
+        const duracionMs = corrida.fechaInicio
+          ? Date.now() - new Date(corrida.fechaInicio).getTime()
+          : undefined;
+
+        void notificarCorridaScraper({
+          corridaId,
+          fuente: corrida.fuente,
+          estado: 'OK',
+          metricas,
+          duracionMs,
+          mensajeError,
+        });
+      }
+    })
+    .catch((err: unknown) => {
+      console.error('[Telegram] Error al preparar notificación de corrida exitosa:', err);
+    });
 }
 
 /**
@@ -79,4 +102,26 @@ export async function marcarCorridaFallida(
       where: { id: corridaId },
     }
   );
+
+  // Notificar fallo por Telegram de forma asíncrona y defensiva
+  CorridaScraperModel.findByPk(corridaId)
+    .then((corrida) => {
+      if (corrida) {
+        const duracionMs = corrida.fechaInicio
+          ? Date.now() - new Date(corrida.fechaInicio).getTime()
+          : undefined;
+
+        void notificarCorridaScraper({
+          corridaId,
+          fuente: corrida.fuente,
+          estado: 'FALLO',
+          metricas: metricas ?? { totalLeidos: 0, nuevos: 0, actualizados: 0, fallidos: 0 },
+          duracionMs,
+          mensajeError,
+        });
+      }
+    })
+    .catch((err: unknown) => {
+      console.error('[Telegram] Error al preparar notificación de corrida fallida:', err);
+    });
 }
